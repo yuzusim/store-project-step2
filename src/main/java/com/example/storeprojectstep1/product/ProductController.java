@@ -24,7 +24,9 @@ public class ProductController {
 
     // 상품 상세보기
     @GetMapping("/product/{id}")
-    public String detail() {
+    public String detail(@PathVariable int id, HttpServletRequest request) {
+        ProductResponse.DetailDTO product = productService.findById(id);
+        request.setAttribute("product", product);
         return "product/detail";
     }
 
@@ -35,7 +37,8 @@ public class ProductController {
     }
 
     @PostMapping("product/add")
-    public String save() {
+    public String save(ProductRequest.SaveDTO reqDTO) {
+        productService.save(reqDTO);
         return "redirect:/";
     }
 

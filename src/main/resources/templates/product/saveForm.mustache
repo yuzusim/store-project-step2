@@ -4,7 +4,7 @@
     <form action="/product/add" method="post" enctype="multipart/form-data" onsubmit="return valid()">
 
         <div class="d-flex prodsav-W">
-            <!--상품 이미지 등록-->
+            <!--사진-->
             <div class="prodsave-L">
                 <div class="p-3 m-3" style="width: 300px;">
                     <div class="row">
@@ -19,18 +19,17 @@
                     </div>
                 </div>
             </div>
-            <!--상품 이미지 등록-->
 
             <!--상품등록-->
             <div class="prodsave-R ml-10">
-
                 <div class="d-flex mb-3 mt-3">
                     <div>
                         상품명 : <input id="name" name="name" type="text"
                                      placeholder="상품명을 적어주세요" style="width:70%;">
                     </div>
                     <div>
-                        <button type="button" onclick="nameSameCheck()" class="btn btn-warning">상품중복체크</button>
+                        <button type="button" onclick="nameSameCheck()"
+                                class="btn btn-warning">상품중복체크</button>
                     </div>
                 </div>
 
@@ -44,10 +43,34 @@
                 </div>
                 <button type="submit" class="btn btn-primary">상품등록완료</button>
             </div>
-            <!--상품등록-->
+
         </div>
     </form>
 </div>
 
+<script>
 
+    function previewImage(input) {
+        var preview = document.getElementById('profilePreview');
+        while (preview.firstChild) {
+            preview.removeChild(preview.firstChild);
+        }
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var img = document.createElement("img");
+                img.src = e.target.result;
+                img.setAttribute("style", "max-width: 100%; max-height: 100%;");
+                preview.appendChild(img);
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            var text = document.createElement("b");
+            text.innerText = "사진을 등록해 주세요.";
+            preview.appendChild(text);
+        }
+    }
+
+
+</script>
 {{> layout/footer}}
