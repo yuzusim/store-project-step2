@@ -10,4 +10,10 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
+    //상품 목록보기
+    public List<ProductResponse.MainDTO> findAll(){
+        List<Product> productList = productRepository.findAll();
+        return productList.stream().map(ProductResponse.MainDTO::new).toList();
+    }
+
 }

@@ -11,15 +11,15 @@
         </tr>
         </thead>
         <tbody>
-
+        {{#productList}}
             <tr>
-                <td>1</td>
-                <td>1<a href="/product" class="product"></a></td>
-                <td>1</td>
-                <td>1</td>
-                <td><a href="/product" class="product btn btn-warning">상세보기</a></td>
+                <td>{{id}}</td>
+                <td>{{name}}</td>
+                <td>{{price}}</td>
+                <td>{{qty}}</td>
+                <td><a href="/product/{{id}}" class="product btn btn-warning">상세보기</a></td>
             </tr>
-
+        {{/productList}}
         </tbody>
     </table>
 
