@@ -14,6 +14,13 @@ import java.util.List;
 public class ProductRepository {
     private final EntityManager em;
 
+    public void deleteById(int id) {
+        Query query =
+                em.createQuery("delete from Product p where p.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
+
     //상품 수정하기
     public Product updateById(int id, ProductRequest.UpdateDTO reqDTO) {
         Product product = em.find(Product.class, id);

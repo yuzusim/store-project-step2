@@ -52,21 +52,16 @@ public class ProductController {
         return "product/updateForm";
     }
 
-//    @PostMapping("/product/{id}/update")
-//    public String update(@PathVariable int id, @RequestParam("img") MultipartFile img, ProductRequest.UpdateDTO reqDTO) {
-//        productService.updeteById(id, reqDTO, img);
-//        return "redirect:/product/" + id;
-//    }
     @PostMapping("/product/{id}/update")
     public String update(@PathVariable int id, ProductRequest.UpdateDTO reqDTO) {
         productService.updateById(id, reqDTO); // 이미지 업데이트를 수행하는 서비스 메서드 호출
-        return "redirect:/product/" + id; // 해당 상품의 디테일 페이지로 리다이렉트
+        return "redirect:/product/" + id;
     }
 
-
     // 상품 삭제하기
-    @PostMapping("/product/1/delete")
+    @PostMapping("/product/{id}/delete")
     public String delete(@PathVariable int id) {
+        productService.deleteById(id);
         return "redirect:/";
     }
 
