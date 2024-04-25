@@ -1,0 +1,24 @@
+a {
+    text-decoration: none !important;
+    &:hover {
+        text-decoration: none !important;
+    }
+}
+.ml-5{margin-left: 5px;}
+.ml-10{margin-left: 10px;}
+.ml-15{margin-left: 15px;}
+.ml-20{margin-left: 20px;}
+
+.pt-100{padding-top: 100px;}
+.pb-100{padding-bottom: 100px;}
+
+/*width*/
+.w12 {width: 1200px; margin: 0 auto;}
+.w14 {width: 1400px; margin: 0 auto;}
+.w16 {width: 1600px; margin: 0 auto;}
+
+input {width: 100%; height: 38px;}
+
+
+.prodsave-L {width: 30%;}
+.prodsave-R {width: 40%;}

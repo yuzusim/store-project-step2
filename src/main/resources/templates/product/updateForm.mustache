@@ -1,0 +1,19 @@
+{{> layout/header}}
+<div class="container">
+
+
+    <form action="/product/1/update" method="post">
+        <div class="mb-3 mt-3">
+            상품명 : <input name="name" name="productName" type="text" value="name">
+        </div>
+        <div class="mb-3 mt-3">
+            상품가격 : <input name="price" name="productPrice" type="number" value="price">
+        </div>
+        <div class="mb-3 mt-3">
+            상품수량 : <input name="qty" name="productQty" type="number" value="qty">
+        </div>
+        <button type="submit" class="btn btn-primary">상품수정완료</button>
+
+    </form>
+</div>
+{{> layout/footer}}

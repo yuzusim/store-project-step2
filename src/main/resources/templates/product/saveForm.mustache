@@ -1,0 +1,53 @@
+{{> layout/header}}
+
+<div class="container w14 pt-100 pb-100" style="margin: 0 auto;">
+    <form action="/product/add" method="post" enctype="multipart/form-data" onsubmit="return valid()">
+
+        <div class="d-flex prodsav-W">
+            <!--상품 이미지 등록-->
+            <div class="prodsave-L">
+                <div class="p-3 m-3" style="width: 300px;">
+                    <div class="row">
+                        <div class="d-flex justify-content-center align-items-center"
+                             style="width: 300px; height: 300px; border: 1px solid #E6E6E6; color: #E6E6E6;"
+                             id="profilePreview">
+                            <b>사진을 등록해 주세요.</b>
+                        </div>
+                        <input type="file" id="imageUpload" name="img"
+                               class="real-upload mx-auto d-block mt-2 w-50 h-50" accept="upload/*" required
+                               multiple onchange="previewImage(this);">
+                    </div>
+                </div>
+            </div>
+            <!--상품 이미지 등록-->
+
+            <!--상품등록-->
+            <div class="prodsave-R ml-10">
+
+                <div class="d-flex mb-3 mt-3">
+                    <div>
+                        상품명 : <input id="name" name="name" type="text"
+                                     placeholder="상품명을 적어주세요" style="width:70%;">
+                    </div>
+                    <div>
+                        <button type="button" onclick="nameSameCheck()" class="btn btn-warning">상품중복체크</button>
+                    </div>
+                </div>
+
+                <div class="mb-3 mt-3">
+                    상품가격 : <input name="price" type="number"
+                                  placeholder="상품 가격을 적어주세요">
+                </div>
+                <div class="mb-3 mt-3">
+                    상품수량 : <input name="qty" type="number"
+                                  placeholder="상품 수량을 적어주세요">
+                </div>
+                <button type="submit" class="btn btn-primary">상품등록완료</button>
+            </div>
+            <!--상품등록-->
+        </div>
+    </form>
+</div>
+
+
+{{> layout/footer}}
