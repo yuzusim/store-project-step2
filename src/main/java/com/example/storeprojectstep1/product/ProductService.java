@@ -1,7 +1,6 @@
 package com.example.storeprojectstep1.product;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,20 +10,24 @@ import java.util.List;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
-    //상품 상세 보기
-//    public ProductResponse.DetailDTO getProductDetail(int id){
-//        Product product = productRepository.findById(id);
-//        return new ProductResponse.DetailDTO(product);
-//    }
 
+    //상품 수정하기
+    @Transactional
+    public ProductResponse.UpdateDTO updateById(int id, ProductRequest.UpdateDTO reqDTO){
+        Product product = productRepository.updateById(id, reqDTO);
+        return new ProductResponse.UpdateDTO(product);
+
+    }
+
+    //상품 상세보기
     public ProductResponse.DetailDTO findById(int id){
         Product product = productRepository.findById(id);
         return new ProductResponse.DetailDTO(product);
 
     }
 
-
-    //상품 등록
+    //상품 등록하기
+    @Transactional
     public ProductResponse.SaveDTO save(ProductRequest.SaveDTO reqDTO){
         Product product = productRepository.save(reqDTO.toEntity());
         return new ProductResponse.SaveDTO(product);

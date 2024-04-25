@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -43,16 +45,24 @@ public class ProductController {
     }
 
     // 상품 수정하기
-    @GetMapping("/product/1/updateForm")
-    public String updateForm(@PathVariable int id) {
-
+    @GetMapping("/product/{id}/updateForm")
+    public String updateForm(@PathVariable int id, HttpServletRequest request) {
+        ProductResponse.DetailDTO product = productService.findById(id);
+        request.setAttribute("product", product);
         return "product/updateForm";
     }
 
-    @PostMapping("/product/1/update")
-    public String update(@PathVariable int id) {
-        return "redirect:/product/" + id;
+//    @PostMapping("/product/{id}/update")
+//    public String update(@PathVariable int id, @RequestParam("img") MultipartFile img, ProductRequest.UpdateDTO reqDTO) {
+//        productService.updeteById(id, reqDTO, img);
+//        return "redirect:/product/" + id;
+//    }
+    @PostMapping("/product/{id}/update")
+    public String update(@PathVariable int id, ProductRequest.UpdateDTO reqDTO) {
+        productService.updateById(id, reqDTO); // 이미지 업데이트를 수행하는 서비스 메서드 호출
+        return "redirect:/product/" + id; // 해당 상품의 디테일 페이지로 리다이렉트
     }
+
 
     // 상품 삭제하기
     @PostMapping("/product/1/delete")

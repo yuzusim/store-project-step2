@@ -5,14 +5,14 @@ import lombok.Data;
 public class ProductResponse {
     //상품 수정
     @Data
-    public static class UpDateDTO {
+    public static class UpdateDTO {
         private int id;
         private String name;
         private int price;
         private int qty;
         private String img;
 
-        public UpDateDTO(Product product) {
+        public UpdateDTO(Product product) {
             this.id = product.getId();
             this.name = product.getName();
             this.price = product.getPrice();

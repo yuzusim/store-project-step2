@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductRequest {
     //상품 수정
     @Data
-    public static class UpDateDTO{
+    public static class UpdateDTO{
         private String name;
         private Integer price;
         private Integer qty;
