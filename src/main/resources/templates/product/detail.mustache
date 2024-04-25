@@ -1,7 +1,7 @@
 {{> layout/header}}
 <div class="container">
     <!-- 이미지를 표시하는 부분 -->
-    <div class="mb-3 mt-3" style="width: 400px">
+    <div class="mb-3 mt-3" style="width: 400px; height: 400px">
         <img src="/upload/{{product.img}}" style="max-width: 100%; max-height: 100%;">
 
     </div>
@@ -13,10 +13,10 @@
     <div class="d-flex pr-5">
         <span><a href="/product/{{id}}/updateForm" class="btn btn-warning">수정가기</a></span>
         <span>
-	            <form action="/product/1/delete" method="post">
-		            <button class="btn btn-danger">삭제하기</button>
-	            </form>
-            </span>
+	        <form action="/product/{{id}}/delete" method="post">
+                <button class="btn btn-danger">삭제하기</button>
+	        </form>
+        </span>
     </div>
 
 </div>
