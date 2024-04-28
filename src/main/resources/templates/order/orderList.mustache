@@ -1,0 +1,73 @@
+{{> layout/header}}
+
+<div class="container pt-5" style="text-align: center">
+    <div class="row">
+        <!--주문 테이블-->
+        <div>
+            <table class="table table-striped">
+                <tr>
+                    <th>번호</th>
+                    <th>상품명</th>
+                    <th>상품가격</th>
+                    <th>구매수량</th>
+                    <th>결제방법</th>
+                    <th>주문상태</th>
+                </tr>
+                {{#orderList}}
+                    <tr>
+                        <td>{{id}}</td>
+                        <td>{{productId.name}}</td> <!-- 수정: productId로부터 상품명을 가져옴 -->
+                        <td>
+                            <div style="width:150px; margin:0 auto;">
+                                <img src="/upload/{{productId.img}}" alt="Product Image" style="max-width: 100%; max-height: 100%;">
+                            </div>
+                            {{productId.price}}
+                        </td> <!-- 수정: productId로부터 상품가격을 가져옴 -->
+
+                        <td>
+                            <!-- 상품의 구매 수량만큼 표시됩니다 -->
+                            <div class="quantity-controls d-flex"
+                                 style="width: 100px; text-align: center; margin:0 auto">
+                                <button type="button" class="decrease-btn" aria-label="수량내리기">-</button>
+                                <input type="text" class="quantity" value="{{orderQty}}"
+                                       style="text-align: center;">
+                                <button type="button" class="increase-btn" aria-label="수량올리기">+</button>
+                            </div>
+                        </td>
+                        <td>
+                            {{payment}}
+                        </td>
+                        <td>
+                            <input type="hidden" name="status" value="{{status}}">
+                            <a href="" class="btn btn-warning">{{status}}</a>
+                        </td>
+                    </tr>
+                {{/orderList}}
+            </table>
+        </div>
+        <!--주문 테이블-->
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // 수량 증가 버튼 클릭 이벤트
+        $(".increase-btn").click(function () {
+            var $quantityInput = $(this).siblings(".quantity");
+            var currentQuantity = parseInt($quantityInput.val());
+            $quantityInput.val(currentQuantity + 1);
+        });
+
+        // 수량 감소 버튼 클릭 이벤트
+        $(".decrease-btn").click(function () {
+            var $quantityInput = $(this).siblings(".quantity");
+            var currentQuantity = parseInt($quantityInput.val());
+            if (currentQuantity > 1) {
+                $quantityInput.val(currentQuantity - 1);
+            }
+        });
+    });
+</script>
+
+{{> layout/footer}}

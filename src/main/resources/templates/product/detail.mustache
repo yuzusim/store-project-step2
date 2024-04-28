@@ -1,24 +1,183 @@
 {{> layout/header}}
-<div class="container">
-    <!-- 이미지를 표시하는 부분 -->
-    <div class="mb-3 mt-3" style="width: 400px; height: 400px">
-        <img src="/upload/{{product.img}}" style="max-width: 100%; max-height: 100%;">
+<div class="container w14 pt-100 pb-100" style="margin: 0 auto;">
 
-    </div>
+    {{#sessionUser}}
+        <!--개인 로그인시-->
+        {{#isCheck}}
+            <div class="d-flex prodsav-W">
 
-    <div class="mb-3 mt-3">상품명 : {{product.name}}</div>
-    <div class="mb-3 mt-3">상품가격 : {{product.price}}</div>
-    <div class="mb-3 mt-3">상품수량 : {{product.qty}}</div>
+                    <input type="hidden" name="productId" value="{{product.id}}">
+                    <!--상품이미지-->
+                    <div class="prodsave-L">
+                        <div class="mb-3 mt-3"
+                             style="width: 400px; height: 400px; border: 1px solid #ddd; color: #ddd; overflow: hidden">
+                            <img src="/upload/{{product.img}}" alt="Product Image"
+                                 style="max-width: 100%; max-height: 100%;">
+                        </div>
+                    </div>
+                    <!--상품이미지-->
 
-    <div class="d-flex pr-5">
-        <span><a href="/product/{{id}}/updateForm" class="btn btn-warning">수정가기</a></span>
-        <span>
+                    <!--구매정보 체크-->
+
+                    <input type="hidden" name="productId" value="{{product.id}}">
+                    <div class="prodsave-R ml-10">
+                        <!--상품 table-->
+                        <table class="prod-info">
+                            <!--상품명-->
+                            <tr>
+                                <th>상품명</th>
+                                <td>
+                                    <input id="name" name="name" type="text" class="form-control"
+                                           value="{{product.name}}" style="width: 100%">
+                                </td>
+                            </tr>
+                            <!--상품명-->
+
+                            <!---->
+
+                            <!--상품가격-->
+                            <tr>
+                                <th>상품가격</th>
+                                <td colspan="2">
+                                    <input name="price" type="number" class="form-control price"
+                                           value="{{product.price}}" style="width: 100%">
+                                </td>
+                            </tr>
+                            <!--상품가격-->
+
+                            <!--상품수량-->
+                            <tr>
+                                <th>상품수량</th>
+                                <td colspan="2">
+                                    <!--
+                                    <input name="qty" type="number" class="form-control col ml-5"
+                                           placeholder="상품 수량을 적어주세요">
+                                    -->
+                                    <!-- 상품의 구매 수량만큼 표시됩니다 -->
+
+                                    <div class="quantity-controls d-flex"
+                                         style="width: 100px; text-align: center; margin:0 auto">
+                                        <button type="button" class="decrease-btn" aria-label="수량내리기">-</button>
+                                        <input type="hidden" name="orderId" value="{{id}}">
+                                        <input type="text" class="quantity" name="orderQty" value="{{product.id}}"
+                                               style="text-align: center;">
+                                        <button type="button" class="increase-btn" aria-label="수량올리기">+</button>
+                                    </div>
+                                    <div class="" style="text-align: end">재고 수량: {{product.qty}} </div>
+
+                                </td>
+                            </tr>
+                            <!--상품수량-->
+                        </table>
+                        <!--상품 table-->
+
+                        <!--구매 btn-->
+                        <div class="row pr-5 pt-5" style="">
+                            <!--
+                            <form action="/order/orderForm" method="post">
+                                <button class="btn btn-danger">구매하기</button>
+                            </form>
+
+                            <span class="col-4 ml-15" style="width:200px">
+                                <a href="/order/orderForm" class="btn btn-warning" style="width:100%">구매하기</a>
+                            </span>
+
+                            <span class="col-4 ml-15" style="width:200px">
+                                <a href="/orderList" class="btn btn-warning" style="width:100%">주문하기</a>
+                            </span>
+<form action="/order/orderForm" method="post">
+                            -->
+                            <div class="d-flex">
+                                <span class="col-4 ml-15" style="width:200px">
+                                    <a href="/order/orderForm" class="btn btn-warning" style="width:100%">구매하기</a>
+                                </span>
+
+                                <span class="col-4 ml-15" style="width:200px">
+                                    <button class="btn btn-danger">주문하기</button>
+
+                                </span>
+                            </div>
+
+
+                        </div>
+
+                        <!--구매 btn-->
+                    </div>
+                    <!--구매정보 체크-->
+
+
+            </div>
+        {{/isCheck}}
+        <!--개인 로그인시-->
+
+        <!--판매자 로그인시-->
+        {{^isCheck}}
+            <!-- 이미지를 표시하는 부분 -->
+            <div class="mb-3 mt-3" style="width: 400px; height: 400px">
+                <img src="/upload/{{product.img}}" style="max-width: 100%; max-height: 100%;">
+
+            </div>
+
+            <div class="mb-3 mt-3">상품명 : {{product.name}}</div>
+            <div class="mb-3 mt-3">상품가격 : {{product.price}}</div>
+            <div class="mb-3 mt-3">상품수량 : {{product.qty}}</div>
+
+            <div class="d-flex pr-5">
+                <span><a href="/product/{{id}}/updateForm" class="btn btn-warning">수정가기</a></span>
+                <span>
 	        <form action="/product/{{id}}/delete" method="post">
                 <button class="btn btn-danger">삭제하기</button>
 	        </form>
         </span>
-    </div>
+            </div>
+        {{/isCheck}}
+        <!--판매자 로그인시-->
+    {{/sessionUser}}
+
+    {{^sessionUser}}
+
+    {{/sessionUser}}
+
+
+    <!--
+    <form action="/order/orderForm" method="post"></form>
+     <span><a href="/order/orderForm" class="btn btn-warning">구매하기</a></span>
+               <form action="/order/orderForm" method="post">
+               <button class="btn btn-warning">구매하기</button>
+               <button type="submit" class="btn btn-primary">구매하기</button>
+    </form>
+    -->
+
 
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // 수량 증가 버튼 클릭 이벤트
+        $(".increase-btn").click(function () {
+            var $quantityInput = $(this).siblings(".quantity");
+            var currentQuantity = parseInt($quantityInput.val());
+            $quantityInput.val(currentQuantity + 1);
+        });
+
+        // 수량 감소 버튼 클릭 이벤트
+        $(".decrease-btn").click(function () {
+            var $quantityInput = $(this).siblings(".quantity");
+            var currentQuantity = parseInt($quantityInput.val());
+            if (currentQuantity > 1) {
+                $quantityInput.val(currentQuantity - 1);
+            }
+        });
+
+        // 재고 수량 계산하여 표시
+        var productQty = parseInt("{{product.qty}}");
+        var orderQty = parseInt($(".quantity").val());
+        var remainingQty = productQty - orderQty;
+        $(".remaining-qty").text("재고 수량: " + remainingQty);
+    });
+</script>
+
+
 
 {{> layout/footer}}

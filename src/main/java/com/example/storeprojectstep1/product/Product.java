@@ -26,7 +26,7 @@ public class Product {
     @Column(nullable = false)
     private Integer qty; //수량
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String img; //상품이미지
 
     @CreationTimestamp
