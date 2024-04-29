@@ -59,21 +59,12 @@ public class OrderRepository {
     }
 
     //상품아이디랑 유저아이디 조회 join fetch u.role
-  // public Order findByProductIdAndUserId(User user, Product product){
-  //     Query query = em.createQuery("select o from Order o join fetch o.user u join fetch o.product p where u.id =:user_id and p.id =:product_id" );
-  //     query.setParameter("user_id", user.getId());
-  //     query.setParameter("product_id", product.getId());
-  //     return (Order) query.getSingleResult();
-  //  }
-
-
     public Order findByProductIdAndUserId(User user, Product product){
-        List<Order> results = em.createQuery("select o from Order o join fetch o.user u join fetch o.product p where u.id =:user_id and p.id =:product_id", Order.class)
-                .setParameter("user_id", user.getId())
-                .setParameter("product_id", product.getId())
-                .getResultList();
-        return results.isEmpty() ? null : results.get(0);
-    }
+        Query query = em.createQuery("select o from Order o join fetch o.user u join fetch o.product p where u.id =:user_id and p.id =:product_id" );
+        query.setParameter("user_id", user.getId());
+        query.setParameter("product_id", product.getId());
+        return (Order) query.getSingleResult();
+     }
 
 
     //목록보기
