@@ -26,7 +26,7 @@ public class UserController {
 
         User sessionUser = userService.save(reqDTO.toEntity());
         session.setAttribute("sessionUser", sessionUser);
-        return "redirect:/loginForm";
+        return "redirect:/login-form";
     }
 
     @GetMapping("/api/username-same-check")
@@ -40,9 +40,9 @@ public class UserController {
     }
 
 
-    @GetMapping("/joinForm")
+    @GetMapping("/join-form")
     public String joinForm() {
-        return "user/joinForm";
+        return "/user/join-form";
     }
 
 
@@ -53,7 +53,7 @@ public class UserController {
 
         if (reqDTO.getUsername().length() < 3) {
             // 유효하지 않은 경우 에러 페이지나 로그인 폼으로 리다이렉션
-            return "redirect:/user/loginForm";
+            return "redirect:/user/login-form";
         }
 
         try {
@@ -79,14 +79,14 @@ public class UserController {
 
     }
 
-    @GetMapping("/loginForm")
+    @GetMapping("/login-form")
     public String loginForm() {
-        return "user/loginForm";
+        return "/user/login-form";
     }
 
-    @GetMapping("/user/updateForm")
+    @GetMapping("/user/update-form")
     public String updateForm() {
-        return "user/updateForm";
+        return "user/update-form";
     }
 
     @GetMapping("/logout")

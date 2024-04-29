@@ -1,7 +1,5 @@
 package com.example.storeprojectstep1.order;
 
-import com.example.storeprojectstep1.product.ProductRequest;
-import com.example.storeprojectstep1.product.ProductResponse;
 import com.example.storeprojectstep1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -36,7 +33,7 @@ public class OrderController {
         Order order = orderService.updateById(sessionUser.getId(), reqDTO);
         session.setAttribute("newOrder", order);
 //        orderService.updateQty(id, orderQty); // 주문 수량을 업데이트
-        return "redirect:/order/order-list";
+        return "redirect:/order/list";
     }
 
 
@@ -44,9 +41,8 @@ public class OrderController {
     @PostMapping("/order/add")
     public String save(OrderRequest.SaveDTO reqDTO) {
 //        orderService.save(reqDTO);
-        return "redirect:/order/order-list";
+        return "redirect:/order/list";
     }
-
 
     @GetMapping("/order/order-form")
     public String orderForm(HttpServletRequest request){
@@ -61,15 +57,14 @@ public class OrderController {
 
     }
 
-
     //목록보기
-    @GetMapping({"/order/order-list"})
+    @GetMapping({"/order/list"})
     public String list(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         List<OrderResponse.ListDTO> orderList = orderService.findAll();
         request.setAttribute("orderList", orderList);
-        return "/order/order-list";
+        return "/order/list";
     }
 
 

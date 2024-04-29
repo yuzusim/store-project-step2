@@ -7,12 +7,12 @@
     <div class="card" style="width:500px; margin: 0 auto;">
         <div class="card-header"><b>로그인을 해주세요</b></div>
         <div class="card-body">
-            <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
+            <form action="/login" method="post" enctype="application/x-www-form-urlencoded" class="was-validated">
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter username" name="username">
+                    <input value="cos" type="text" class="form-control" id="username" placeholder="Enter username" name="username" required>
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="Enter password" name="password">
+                    <input value="1234" type="password" class="form-control" id="password" placeholder="Enter password" name="password" >
                 </div>
                 <button type="submit" class="btn btn-primary form-control">로그인</button>
             </form>

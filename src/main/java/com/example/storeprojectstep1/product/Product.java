@@ -1,5 +1,6 @@
 package com.example.storeprojectstep1.product;
 
+import com.example.storeprojectstep1.order.Order;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -28,6 +30,9 @@ public class Product {
 
     //@Column(nullable = false)
     private String img; //상품이미지
+
+    //@OneToMany(mappedBy = "product")
+    //private List<Order> orders;
 
     @CreationTimestamp
     private Timestamp createdAt;

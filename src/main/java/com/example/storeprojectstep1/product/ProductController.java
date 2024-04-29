@@ -33,9 +33,9 @@ public class ProductController {
     }
 
     // 상품 등록하기
-    @GetMapping("/product/saveForm")
+    @GetMapping("/product/save-form")
     public String saveForm() {
-        return "product/saveForm";
+        return "product/save-form";
     }
 
     @PostMapping("product/add")
@@ -45,11 +45,11 @@ public class ProductController {
     }
 
     // 상품 수정하기
-    @GetMapping("/product/{id}/updateForm")
+    @GetMapping("/product/{id}/update-form")
     public String updateForm(@PathVariable int id, HttpServletRequest request) {
         ProductResponse.DetailDTO product = productService.findById(id);
         request.setAttribute("product", product);
-        return "product/updateForm";
+        return "product/update-form";
     }
 
     @PostMapping("/product/{id}/update")

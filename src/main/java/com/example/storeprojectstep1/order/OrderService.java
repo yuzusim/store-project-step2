@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService {
     private final OrderRepository orderRepo;
-    private final ProductRepository productRepository;
+    private final ProductRepository productRepo;
     private final EntityManager em;
 
 
@@ -50,17 +50,12 @@ public class OrderService {
         return orderList.stream().map(OrderResponse.ListDTO::new).toList();
     }
 
+    //업데이트
     public OrderResponse.OrderDTO getOrderDetail(User user, Integer productId){
-        Product product = productRepository.findById(productId);
-        Order order = orderRepo.findByProductIdAndUserId(user, product);
+        Product product = productRepo.findById(productId); //상품id조회
+        Order order = orderRepo.findByProductIdAndUserId(user, product); //해당 제품과 사용자에 해당하는 주문찾음
         return new OrderResponse.OrderDTO(order);
-
     }
 
-
-//    public OrderResponse.DetailDTO findById(int id) {
-//        Order order = orderRepo.findById(id);
-//        return new OrderResponse.DetailDTO(order);
-//    }
 
 }

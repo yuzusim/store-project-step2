@@ -3,11 +3,13 @@ package com.example.storeprojectstep1.order;
 import com.example.storeprojectstep1.product.Product;
 import com.example.storeprojectstep1.user.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,26 +20,7 @@ public class OrderRepository {
     private final EntityManager em;
 
 
-    //등록하기
-//    public Order save(Order order) {
-//        String q = """
-//            INSERT INTO Order (user, product, payment, orderQty, totalQty, status, createdAt)
-//            VALUES (:user, :product, :payment, :orderQty, :totalQty, :status, :createdAt)
-//            """;
-//
-//        Query query = em.createQuery(q);
-//        query.setParameter("user", order.getUser());
-//        query.setParameter("product", order.getProduct());
-//        query.setParameter("payment", order.getPayment());
-//        query.setParameter("orderQty", order.getOrderQty());
-//        query.setParameter("totalQty", order.getTotalQty());
-//        query.setParameter("status", order.getStatus());
-//        query.setParameter("createdAt", order.getCreatedAt());
-//
-//        query.executeUpdate();
-//
-//        return order; // 저장된 엔티티 반환
-//    }
+
 
 //    public Order save(Order order) {
 //        String q = """
@@ -75,12 +58,21 @@ public class OrderRepository {
         return order;
     }
 
-    //상품아이디랑 유저아이디 조회
+    //상품아이디랑 유저아이디 조회 join fetch u.role
+  // public Order findByProductIdAndUserId(User user, Product product){
+  //     Query query = em.createQuery("select o from Order o join fetch o.user u join fetch o.product p where u.id =:user_id and p.id =:product_id" );
+  //     query.setParameter("user_id", user.getId());
+  //     query.setParameter("product_id", product.getId());
+  //     return (Order) query.getSingleResult();
+  //  }
+
+
     public Order findByProductIdAndUserId(User user, Product product){
-        Query query = em.createQuery("select o from Order o join fetch o.user u join fetch o.product p where u.id =:user_id and p.id =:product_id" );
-        query.setParameter("user_id", user.getId());
-        query.setParameter("product_id", product.getId());
-        return (Order) query.getSingleResult();
+        List<Order> results = em.createQuery("select o from Order o join fetch o.user u join fetch o.product p where u.id =:user_id and p.id =:product_id", Order.class)
+                .setParameter("user_id", user.getId())
+                .setParameter("product_id", product.getId())
+                .getResultList();
+        return results.isEmpty() ? null : results.get(0);
     }
 
 

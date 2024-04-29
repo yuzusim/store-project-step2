@@ -1,11 +1,10 @@
 {{> layout/header}}
 <div class="container w14 pt-100 pb-100" style="margin: 0 auto;">
-    <form action="/order/{{id}}/update" method="post" enctype="multipart/form-data"></form>
+
     {{#sessionUser}}
         <!--개인 로그인시-->
         {{#isCheck}}
             <div class="d-flex prodsav-W">
-
                 <input type="hidden" name="productId" value="{{product.id}}">
                 <!--상품이미지-->
                 <div class="prodsave-L">
@@ -54,12 +53,11 @@
                                        placeholder="상품 수량을 적어주세요">
                                 -->
                                 <!-- 상품의 구매 수량만큼 표시됩니다 -->
-
                                 <div class="quantity-controls d-flex"
                                      style="width: 100px; text-align: center; margin:0 auto">
                                     <button type="button" class="decrease-btn" aria-label="수량내리기">-</button>
                                     <input type="hidden" name="orderId" value="{{id}}">
-                                    <input type="text" class="quantity" name="orderQty" value="{{product.id}}"
+                                    <input type="text" class="quantity" name="orderQty" value="{{orderQty}}"
                                            style="text-align: center;">
                                     <button type="button" class="increase-btn" aria-label="수량올리기">+</button>
                                 </div>
@@ -73,71 +71,31 @@
 
                     <!--구매 btn-->
                     <div class="row pr-5 pt-5" style="">
-                        <!--
-                        <form action="/order/orderForm" method="post">
-                            <button class="btn btn-danger">구매하기</button>
-                        </form>
-
                         <span class="col-4 ml-15" style="width:200px">
-                            <a href="/order/orderForm" class="btn btn-warning" style="width:100%">구매하기</a>
+                            <a href="/order/list" class="btn btn-warning" style="width:100%">구매하기</a>
                         </span>
-
+                        <!--수정하기-->
                         <span class="col-4 ml-15" style="width:200px">
-                            <a href="/orderList" class="btn btn-warning" style="width:100%">주문하기</a>
+                             <a href="/order/{{product.id}}/update-form" class="btn btn-warning"
+                                style="width:100%">수정하기</a>
                         </span>
-<form action="/order/orderForm" method="post">
-                        -->
-                        <div class="d-flex">
-                                <span class="col-4 ml-15" style="width:200px">
-                                    <a href="/order/order-list" class="btn btn-warning" style="width:100%">구매하기</a>
-                                </span>
-
-                            <span class="col-4 ml-15" style="width:200px">
-                                    <a href="/order/{{id}}/update-form" class="btn btn-warning" style="width:100%">수정하기</a>
-                                </span>
-                        </div>
-
-
                     </div>
-
                     <!--구매 btn-->
                 </div>
                 <!--구매정보 체크-->
-
 
             </div>
         {{/isCheck}}
         <!--개인 로그인시-->
 
-        <!--판매자 로그인시-->
-        {{^isCheck}}
-            <!-- 이미지를 표시하는 부분 -->
-            <div class="mb-3 mt-3" style="width: 400px; height: 400px">
-                <img src="/upload/{{product.img}}" style="max-width: 100%; max-height: 100%;">
 
-            </div>
-
-            <div class="mb-3 mt-3">상품명 : {{product.name}}</div>
-            <div class="mb-3 mt-3">상품가격 : {{product.price}}</div>
-            <div class="mb-3 mt-3">상품수량 : {{product.qty}}</div>
-
-            <div class="d-flex pr-5">
-                <span><a href="/product/{{id}}/updateForm" class="btn btn-warning">수정가기</a></span>
-                <span>
-	        <form action="/product/{{id}}/delete" method="post">
-                <button class="btn btn-danger">삭제하기</button>
-	        </form>
-        </span>
-            </div>
-        {{/isCheck}}
-        <!--판매자 로그인시-->
     {{/sessionUser}}
 
     {{^sessionUser}}
 
     {{/sessionUser}}
 
-    </form>
+
     <!--
     <form action="/order/orderForm" method="post"></form>
      <span><a href="/order/orderForm" class="btn btn-warning">구매하기</a></span>

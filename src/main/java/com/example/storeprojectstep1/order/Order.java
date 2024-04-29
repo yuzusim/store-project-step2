@@ -25,7 +25,7 @@ public class Order {
 
     // 여러번 상품을 주문할 수 있다.
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "product_id")
+    //@JoinColumn(name = "product_id")
     private Product product;
 
     private String payment; //계좌이체
@@ -33,7 +33,7 @@ public class Order {
     //    @Column(nullable = false)
     private Integer orderQty; //수량
 
-    private Integer totalQty; //수량
+    private Integer totalQty; //합계수량
 
     private String status; //주문, 취소
 
