@@ -1,5 +1,7 @@
 package com.example.storeprojectstep1.order;
 
+import com.example.storeprojectstep1.product.Product;
+import com.example.storeprojectstep1.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +19,70 @@ public class OrderRepository {
 
 
     //등록하기
-    @Transactional
-    public Order save(Order order){
-        em.persist(order);
+//    public Order save(Order order) {
+//        String q = """
+//            INSERT INTO Order (user, product, payment, orderQty, totalQty, status, createdAt)
+//            VALUES (:user, :product, :payment, :orderQty, :totalQty, :status, :createdAt)
+//            """;
+//
+//        Query query = em.createQuery(q);
+//        query.setParameter("user", order.getUser());
+//        query.setParameter("product", order.getProduct());
+//        query.setParameter("payment", order.getPayment());
+//        query.setParameter("orderQty", order.getOrderQty());
+//        query.setParameter("totalQty", order.getTotalQty());
+//        query.setParameter("status", order.getStatus());
+//        query.setParameter("createdAt", order.getCreatedAt());
+//
+//        query.executeUpdate();
+//
+//        return order; // 저장된 엔티티 반환
+//    }
+
+//    public Order save(Order order) {
+//        String q = """
+//            INSERT INTO Order (orderQty)
+//            VALUES (:orderQty)
+//            """;
+//
+//        Query query = em.createQuery(q);
+//        query.setParameter("orderQty", order.getOrderQty());
+//
+//        query.executeUpdate();
+//
+//        return order; // 저장된 엔티티 반환
+//    }
+
+
+//    public int updateQty(int orderId, int orderQty) {
+//        String q = "UPDATE Order o SET o.orderQty = :orderQty WHERE o.id = :orderId";
+//        Query query = em.createQuery(q);
+//        query.setParameter("orderQty", orderQty);
+//        query.setParameter("orderId", orderId);
+//        return query.executeUpdate();
+//    }
+
+
+    //업데이트
+    public Order updateById(int id, OrderRequest.UpdateDTO reqDTO) {
+        Order order = findById(id);
+        order.setOrderQty(reqDTO.getOrderQty());
         return order;
     }
+
+    public Order findById(int id) {
+        Order order = em.find(Order.class, id);
+        return order;
+    }
+
+    //상품아이디랑 유저아이디 조회
+    public Order findByProductIdAndUserId(User user, Product product){
+        Query query = em.createQuery("select o from Order o join fetch o.user u join fetch o.product p where u.id =:user_id and p.id =:product_id" );
+        query.setParameter("user_id", user.getId());
+        query.setParameter("product_id", product.getId());
+        return (Order) query.getSingleResult();
+    }
+
 
     //목록보기
     public List<Order> findAll() {

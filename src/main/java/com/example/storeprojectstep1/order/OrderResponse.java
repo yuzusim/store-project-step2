@@ -10,24 +10,53 @@ import javax.net.ssl.SSLSession;
 
 public class OrderResponse {
 
+
     @Data
-    public static class SaveDTO {
+    public static class OrderDTO {
         private Integer id;
-        private Integer userId; // 사용자 ID만 포함
-        private Integer productId; // 상품 ID만 포함
+        private User user; // 사용자 ID만 포함
+        private Product product; // 상품 ID만 포함
         private String payment;
         private Integer orderQty;
         private String status;
 
-        public SaveDTO(Order order) {
+        public OrderDTO(Order order) {
             this.id = order.getId();
-            this.userId = order.getUser().getId();
-            this.productId = order.getProduct().getId();
+            this.user = order.getUser();
+            this.product = order.getProduct();
             this.payment = order.getPayment();
             this.orderQty = order.getOrderQty();
             this.status = order.getStatus();
         }
+    }
 
+    @Data
+    public static class DetailDTO{
+        private Integer orderQty;
+
+        public DetailDTO(Order Order) {
+            this.orderQty = Order.getOrderQty();
+        }
+    }
+
+    //업데이트
+    @Data
+    public static class UpdateDTO{
+        private Integer orderQty;
+
+        public UpdateDTO(Order Order) {
+            this.orderQty = Order.getOrderQty();
+        }
+    }
+
+
+    @Data
+    public static class SaveDTO {
+        private Integer orderQty;
+
+        public SaveDTO(Order order) {
+            this.orderQty = order.getOrderQty();
+        }
     }
 
     //목록보기

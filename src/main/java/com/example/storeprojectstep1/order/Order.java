@@ -24,14 +24,15 @@ public class Order {
     private User user;
 
     // 여러번 상품을 주문할 수 있다.
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "product_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "product_id")
     private Product product;
 
     private String payment; //계좌이체
 
     //    @Column(nullable = false)
     private Integer orderQty; //수량
+
     private Integer totalQty; //수량
 
     private String status; //주문, 취소
