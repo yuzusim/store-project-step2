@@ -21,32 +21,6 @@ public class OrderRepository {
     private final EntityManager em;
 
 
-
-
-//    public Order save(Order order) {
-//        String q = """
-//            INSERT INTO Order (orderQty)
-//            VALUES (:orderQty)
-//            """;
-//
-//        Query query = em.createQuery(q);
-//        query.setParameter("orderQty", order.getOrderQty());
-//
-//        query.executeUpdate();
-//
-//        return order; // 저장된 엔티티 반환
-//    }
-
-
-//    public int updateQty(int orderId, int orderQty) {
-//        String q = "UPDATE Order o SET o.orderQty = :orderQty WHERE o.id = :orderId";
-//        Query query = em.createQuery(q);
-//        query.setParameter("orderQty", orderQty);
-//        query.setParameter("orderId", orderId);
-//        return query.executeUpdate();
-//    }
-
-
     //업데이트
     public Order updateById(int id, OrderRequest.UpdateDTO reqDTO) {
         Order order = findById(id);
@@ -54,18 +28,19 @@ public class OrderRepository {
         return order;
     }
 
+    //상세보기
     public Order findById(int id) {
         Order order = em.find(Order.class, id);
         return order;
     }
 
-    //상품 등록하기
+    //상품 구매하기
     public Order save(Order order) {
         em.persist(order);
         return order;
     }
 
-    //상품아이디랑 유저아이디 조회 join fetch u.role
+    //상품아이디랑 유저아이디 조회 (join fetch u.role -> 하등 필요 없는 거였음)
     public Order findByProductIdAndUserId(int productId, int userId) {
         Query query = em.createQuery("select o from Order o JOIN FETCH o.product p JOIN FETCH o.user u WHERE p.id =:product_id and u.id =:user_id");
         query.setParameter("product_id", productId);
@@ -75,13 +50,14 @@ public class OrderRepository {
     }
 
 
-    //목록보기
+    //주문 목록보기 order/list
     public List<Order> findAll() {
         Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product ORDER BY o.id DESC", Order.class);
         return query.getResultList();
     }
 
 
+    //주문 폼
     public List<Order> findByOrderAndUserId(int id) {
         Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user u JOIN FETCH o.product p where u.id =:id", Order.class);
         query.setParameter("id", id);

@@ -46,22 +46,7 @@ public class OrderController {
         return "redirect:/order/"+id+"/order-form";
     }
 
-
-
-
-//    @GetMapping("/order/{id}/order-form")
-//    public String orderForm(@PathVariable int id, HttpServletRequest request){
-//
-//
-//        List<OrderResponse.OrderDTO> orderSaveList = orderService.findByOrderIdAndUserId(sessionUser.getId());
-//        request.setAttribute("orderSaveList", orderSaveList);
-//
-//        // 세션에서 유저 정보를 가져와서 주문 폼에 필요한 데이터 설정
-//        session.setAttribute("user", sessionUser);
-//        return "order/order-form";
-//
-//    }
-
+    //주문 폼
     @GetMapping("/order/{id}/order-form")
     public String orderForm(@PathVariable int id, HttpServletRequest request){
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -75,16 +60,14 @@ public class OrderController {
         return "order/order-form";
     }
 
-
-    //목록보기
+    //구매목록
     @GetMapping({"/order/list"})
     public String list(HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        //User sessionUser = (User) session.getAttribute("sessionUser");
 
         List<OrderResponse.ListDTO> orderList = orderService.findAll();
         request.setAttribute("orderList", orderList);
         return "/order/list";
     }
-
 
 }
