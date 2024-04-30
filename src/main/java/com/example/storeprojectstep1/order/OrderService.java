@@ -51,9 +51,9 @@ public class OrderService {
     }
 
     //업데이트
-    public OrderResponse.OrderDTO getOrderDetail(User user, Integer productId){
-        Product product = productRepo.findById(productId); //상품id조회
-        Order order = orderRepo.findByProductIdAndUserId(user, product); //해당 제품과 사용자에 해당하는 주문찾음
+    public OrderResponse.OrderDTO getOrderDetail(Integer userId, Integer productId){
+//        Product product = productRepo.findById(productId); //상품id조회
+        Order order = orderRepo.findByProductIdAndUserId(productId, userId); //해당 제품과 사용자에 해당하는 주문찾음
         return new OrderResponse.OrderDTO(order);
     }
 

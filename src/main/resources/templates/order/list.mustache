@@ -16,12 +16,12 @@
                 {{#orderList}}
                     <tr>
                         <td>{{id}}</td>
-                        <td>{{productId.name}}</td> <!-- 수정: productId로부터 상품명을 가져옴 -->
+                        <td>{{product.name}}</td> <!-- 수정: productId로부터 상품명을 가져옴 -->
                         <td>
                             <div style="width:150px; margin:0 auto;">
-                                <img src="/upload/{{productId.img}}" alt="Product Image" style="max-width: 100%; max-height: 100%;">
+                                <img src="/upload/{{product.img}}" alt="Product Image" style="max-width: 100%; max-height: 100%;">
                             </div>
-                            {{productId.price}}
+                            {{product.price}}
                         </td> <!-- 수정: productId로부터 상품가격을 가져옴 -->
 
                         <td>

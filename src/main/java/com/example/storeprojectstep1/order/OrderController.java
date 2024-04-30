@@ -22,15 +22,15 @@ public class OrderController {
     @GetMapping("/order/{id}/update-form")
     public String updateForm(@PathVariable int id, HttpServletRequest request){
         User sessionUser = (User) session.getAttribute("sessionUser");
-        OrderResponse.OrderDTO order = orderService.getOrderDetail(sessionUser, id);
+        OrderResponse.OrderDTO order = orderService.getOrderDetail(sessionUser.getId(), id);
         request.setAttribute("order", order);
+        System.out.println("test::::::::::::" + sessionUser);
         return "order/update-form";
     }
 
     @PostMapping("/order/{id}/update")
     public String update(@PathVariable int id, OrderRequest.UpdateDTO reqDTO){
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        Order order = orderService.updateById(sessionUser.getId(), reqDTO);
+        Order order = orderService.updateById(id, reqDTO);
         session.setAttribute("newOrder", order);
 //        orderService.updateQty(id, orderQty); // 주문 수량을 업데이트
         return "redirect:/order/list";

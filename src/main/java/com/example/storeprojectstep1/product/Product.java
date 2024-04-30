@@ -31,9 +31,6 @@ public class Product {
     //@Column(nullable = false)
     private String img; //상품이미지
 
-    //@OneToMany(mappedBy = "product")
-    //private List<Order> orders;
-
     @CreationTimestamp
     private Timestamp createdAt;
 

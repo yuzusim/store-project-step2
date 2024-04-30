@@ -59,12 +59,12 @@ public class OrderRepository {
     }
 
     //상품아이디랑 유저아이디 조회 join fetch u.role
-    public Order findByProductIdAndUserId(User user, Product product){
-        Query query = em.createQuery("select o from Order o join fetch o.user u join fetch o.product p where u.id =:user_id and p.id =:product_id" );
-        query.setParameter("user_id", user.getId());
-        query.setParameter("product_id", product.getId());
+    public Order findByProductIdAndUserId(int productId, int userId) {
+        Query query = em.createQuery("select distinct o from Order o JOIN FETCH o.product p JOIN FETCH o.user u WHERE p.id =:product_id and u.id =:user_id");
+        query.setParameter("product_id", productId);
+        query.setParameter("user_id", userId);
         return (Order) query.getSingleResult();
-     }
+    }
 
 
     //목록보기

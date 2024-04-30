@@ -1,9 +1,9 @@
 {{> layout/header}}
 <div class="container w14 pt-100 pb-100" style="margin: 0 auto;">
 
-    {{#sessionUser}}
+
         <!--개인 로그인시-->
-        {{#isCheck}}
+
             <div class="d-flex prodsav-W">
 
                 <!--상품이미지-->
@@ -86,7 +86,7 @@
                 <!--구매정보 체크-->
 
             </div>
-        {{/isCheck}}
+
         <!--개인 로그인시-->
 
         <!--판매자 로그인시-->
@@ -111,7 +111,7 @@
             </div>
         {{/isCheck}}
         <!--판매자 로그인시-->
-    {{/sessionUser}}
+
 
     <!--비회원 로그인시-->
     {{^sessionUser}}
