@@ -9,6 +9,17 @@ import lombok.Data;
 public class OrderRequest {
 
     @Data
+    public static class PaymentDTO{
+        private String payment;
+    }
+
+
+    @Data
+    public static class StatusDTO{
+        private String status;
+    }
+
+    @Data
     public static class UpdateDTO{
         // 주문수량
         private Integer orderQty;

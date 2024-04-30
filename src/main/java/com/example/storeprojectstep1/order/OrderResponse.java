@@ -10,7 +10,8 @@ import javax.net.ssl.SSLSession;
 
 public class OrderResponse {
 
-
+    //주문 폼
+    //상세보기
     @Data
     public static class OrderDTO {
         private Integer id;
@@ -40,6 +41,7 @@ public class OrderResponse {
         }
     }
 
+    //상세보기
     @Data
     public static class DetailDTO{
         private Integer orderQty;
@@ -85,7 +87,7 @@ public class OrderResponse {
         }
     }
 
-    //목록보기
+    //주문 목록보기
     @Data
     public static class ListDTO {
         private Integer id;

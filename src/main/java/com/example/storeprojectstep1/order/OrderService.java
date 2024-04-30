@@ -33,6 +33,12 @@ public class OrderService {
         return new OrderResponse.OrderDTO(order);
     }
 
+    //상세보기
+    public OrderResponse.DetailDTO findById(int id) {
+        Order order = orderRepo.findById(id);
+        return new OrderResponse.DetailDTO(order);
+    }
+
 
     //구매하기
     @Transactional

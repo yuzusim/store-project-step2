@@ -1,5 +1,6 @@
 package com.example.storeprojectstep1.order;
 
+import com.example.storeprojectstep1.product.ProductResponse;
 import com.example.storeprojectstep1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -33,9 +34,24 @@ public class OrderController {
         Order order = orderService.updateById(id, reqDTO);
         session.setAttribute("newOrder", order);
 //        orderService.updateQty(id, orderQty); // 주문 수량을 업데이트
-        return "redirect:/order/list";
+        return "redirect:/order/"+id;
     }
 
+    //삭제하기
+    @PostMapping("/order/{id}/delete")
+    public String delete(@PathVariable int id) {
+//        productService.deleteById(id);
+        return "redirect:/";
+    }
+
+
+    //상세보기
+    @GetMapping("/order/{id}")
+    public String detail(@PathVariable int id, HttpServletRequest request) {
+        OrderResponse.DetailDTO order = orderService.findById(id);
+        request.setAttribute("Order", order);
+        return "order/update-form";
+    }
 
     //구매하기
     @PostMapping("/order/{id}/add")

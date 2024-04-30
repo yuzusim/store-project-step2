@@ -16,6 +16,7 @@
                     <th>상품명</th>
                     <th>구매수량</th>
                     <th>상품가격</th>
+                    <th>상세보기</th>
                 </tr>
                 {{#orderSaveList}}
                     <input type="hidden" name="productId" value="{{id}}">
@@ -35,6 +36,9 @@
                         <td>
                             {{price}}
                         </td>
+                        <td>
+                            <a href="/order/{{id}}" class="btn btn-warning" style="width:100px">상세보기</a>
+                        </td>
 
                     </tr>
                 {{/orderSaveList}}
@@ -46,7 +50,9 @@
         <!--배송 정보 및 주문 버튼-->
         <div class="cart-R ml-10">
             <div>
-                <h3>배송지</h3>
+                <h3>[ 주문자 정보 ]</h3>
+                <p>{{user.username}}</p>
+                <h3>[ 배송지 ]</h3>
                 <p>{{user.address}}</p>
                 <div class="mb-10">
                     <a href="/order/list" class="btn btn-warning" style="width:300px">배송지 변경</a>
@@ -66,7 +72,7 @@
                 </div>
 
                 <div class="mb">
-                    <a href="#" class="btn btn-warning" style="width:300px">상세보기</a>
+                    <a href="/order/detail" class="btn btn-warning" style="width:300px">상세보기</a>
                 </div>
             </div>
 
