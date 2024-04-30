@@ -38,24 +38,43 @@ public class OrderController {
 
 
     //구매하기
-    @PostMapping("/order/add")
-    public String save(OrderRequest.SaveDTO reqDTO) {
-//        orderService.save(reqDTO);
-        return "redirect:/order/list";
+    @PostMapping("/order/{id}/add")
+    public String save(@PathVariable Integer id, OrderRequest.SaveDTO reqDTO) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        orderService.save(reqDTO, id, sessionUser);
+
+        return "redirect:/order/"+id+"/order-form";
     }
 
-    @GetMapping("/order/order-form")
-    public String orderForm(HttpServletRequest request){
+
+
+
+//    @GetMapping("/order/{id}/order-form")
+//    public String orderForm(@PathVariable int id, HttpServletRequest request){
+//
+//
+//        List<OrderResponse.OrderDTO> orderSaveList = orderService.findByOrderIdAndUserId(sessionUser.getId());
+//        request.setAttribute("orderSaveList", orderSaveList);
+//
+//        // 세션에서 유저 정보를 가져와서 주문 폼에 필요한 데이터 설정
+//        session.setAttribute("user", sessionUser);
+//        return "order/order-form";
+//
+//    }
+
+    @GetMapping("/order/{id}/order-form")
+    public String orderForm(@PathVariable int id, HttpServletRequest request){
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-//        List<OrderResponse.ListDTO> orderList = orderService.findAll();
-//        request.setAttribute("orderList", orderList);
+        // 사용자의 ID를 세션에서 가져와서 주문 목록 조회
+        List<OrderResponse.OrderDTO> orderSaveList = orderService.findByOrderAndUserId(sessionUser.getId());
+        request.setAttribute("orderSaveList", orderSaveList);
 
         // 세션에서 유저 정보를 가져와서 주문 폼에 필요한 데이터 설정
-        request.setAttribute("user", sessionUser);
-        return "/order/order-form";
-
+        session.setAttribute("user", sessionUser);
+        return "order/order-form";
     }
+
 
     //목록보기
     @GetMapping({"/order/list"})

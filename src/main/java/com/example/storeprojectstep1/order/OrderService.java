@@ -2,6 +2,8 @@ package com.example.storeprojectstep1.order;
 
 import com.example.storeprojectstep1.product.Product;
 import com.example.storeprojectstep1.product.ProductRepository;
+import com.example.storeprojectstep1.product.ProductRequest;
+import com.example.storeprojectstep1.product.ProductResponse;
 import com.example.storeprojectstep1.user.User;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -19,29 +21,23 @@ public class OrderService {
     private final EntityManager em;
 
 
-//    //상품 등록하기
-//
-//    public Order save(OrderRequest.SaveDTO reqDTO) {
-//        Order order = reqDTO.toEntity();
-//        return orderRepo.save(order); // 주문 정보를 저장하고 저장된 주문 정보 반환
-//    }
-
-//    @Transactional
-//    public OrderResponse.SaveDTO save(OrderRequest.SaveDTO reqDTO){
-//        Order order = orderRepo.save(reqDTO.toEntity());
-//        return new OrderResponse.SaveDTO(order);
-//    }
-
-
-//    @Transactional
-//    public int updateQty(int orderId, int updateQty) {
-//        return orderRepo.updateQty(orderId, updateQty);
-//    }
-
     @Transactional
     public Order updateById(int id, OrderRequest.UpdateDTO reqDTO){
         return  orderRepo.updateById(id, reqDTO);
+    }
+//
+    //구매목록
+    public List<OrderResponse.OrderDTO> findByOrderAndUserId(int id){
+        List<Order> saveList = orderRepo.findByOrderAndUserId(id);
+        return saveList.stream().map(OrderResponse.OrderDTO::new).toList();
+    }
 
+    //상품 등록하기
+    @Transactional
+    public OrderResponse.SaveDTO save(OrderRequest.SaveDTO reqDTO, int id, User user){
+        Product product = productRepo.findById(id);
+        Order order = orderRepo.save(reqDTO.toEntity(product, user));
+        return new OrderResponse.SaveDTO(order);
     }
 
     // 주문 목록을 가져오는 메서드

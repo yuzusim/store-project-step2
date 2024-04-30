@@ -15,6 +15,7 @@
                 </tr>
                 {{#orderList}}
                     <tr>
+                    <tr>
                         <td>{{id}}</td>
                         <td>{{product.name}}</td> <!-- 수정: productId로부터 상품명을 가져옴 -->
                         <td>
@@ -27,13 +28,13 @@
                         <td>
                             {{orderQty}}
                         </td>
-                        <td>
-                            {{payment}}
-                        </td>
-                        <td>
-                            <input type="hidden" name="status" value="{{status}}">
-                            <a href="" class="btn btn-warning">{{status}}</a>
-                        </td>
+<!--                        <td>-->
+<!--                            payment-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            <input type="hidden" name="status" value="status">-->
+<!--                            <a href="" class="btn btn-warning">status</a>-->
+<!--                        </td>-->
                     </tr>
                 {{/orderList}}
             </table>

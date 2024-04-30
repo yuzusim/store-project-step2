@@ -29,13 +29,14 @@ public class Order {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Column
     private String payment; //계좌이체
 
-    //    @Column(nullable = false)
+    @Column
     private Integer orderQty; //수량
-
+    @Column
     private Integer totalQty; //합계수량
-
+    @Column
     private String status; //주문, 취소
 
     @CreationTimestamp

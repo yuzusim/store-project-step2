@@ -23,7 +23,7 @@ input {width: 100% !important; height: 38px;}
 /*상품등록부분*/
 .prod-info{_border-bottom:1px solid #ddd;}
 .prod-info th{padding: 25px 0;}
-.prodsav-W{align-items: center}
+.prodsav-W, .cart-W{align-items: center}
 .prodsave-L {width: 40%;}
 .prodsave-R {width: 60%;}
 .btn-apply{width:300px; padding:10px 0; margin:0 auto;}
@@ -32,3 +32,5 @@ input {width: 100% !important; height: 38px;}
     padding-right:0 !important;
     padding-left:0 !important;
 }
+.card-L{width:80%;}
+.card-R{width:30%;}
