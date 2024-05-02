@@ -37,3 +37,21 @@ input {width: 100% !important; height: 38px;}
 }
 .cart-L{width:70%;}
 .cart-R{width:30%;}
+/*#212529;*/
+
+.decrease-btn{
+    border: 1px solid #ddd; background-color: #fff;
+    border-top-left-radius:5px;
+    border-bottom-left-radius:5px;
+}
+.increase-btn{
+    border: 1px solid #ddd; background-color: #fff;
+    border-top-right-radius:5px;
+    border-bottom-right-radius:5px;
+}
+.quantity{
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-left: none;
+    border-right: none;
+}
