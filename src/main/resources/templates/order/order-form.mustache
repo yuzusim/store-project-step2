@@ -17,6 +17,7 @@
                     <th>구매수량</th>
                     <th>상품가격</th>
                     <th>상세보기</th>
+                    <th>선택하기</th>
                 </tr>
                 {{#orderSaveList}}
                     <input type="hidden" name="productId" value="{{id}}">
@@ -29,15 +30,32 @@
                             </div>
                             {{name}}
                         </td>
+
+                        <!--구매수량-->
                         <td>
-                            <input type="hidden" name="orderId" value="{{id}}">
-                            {{id}}
+                            {{orderQty}}
+                            <!-- 버튼으로 도 수량 올리고 싶을시
+                            <div class="quantity-controls d-flex"
+                                 style="width: 100px; text-align: center; margin:0 auto">
+                                <button type="button" class="decrease-btn" aria-label="수량내리기">-</button>
+                                <input type="text" class="quantity" name="orderQty" value=""
+                                       style="text-align: center;">
+                                <button type="button" class="increase-btn" aria-label="수량올리기">+</button>
+                            </div>
+                            <div class="" style="text-align: end">재고 수량: product.qty}} </div>
+                            -->
                         </td>
+                        <!---->
                         <td>
                             {{price}}
                         </td>
                         <td>
-                            <a href="/order/{{id}}" class="btn btn-warning" style="width:100px">상세보기</a>
+                            <!--선택하기 주문 삭제-->
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name=""
+                                       value="" style="width:20px !important;">
+                            </label>
+<!--                            <a href="/order/id}}" class="btn btn-warning" style="width:100px">상세보기</a>-->
                         </td>
 
                     </tr>
@@ -72,7 +90,7 @@
                 </div>
 
                 <div class="mb">
-                    <a href="/order/detail" class="btn btn-warning" style="width:300px">상세보기</a>
+                    <a href="/order/detail" class="btn btn-warning" style="width:300px">삭제하기</a>
                 </div>
             </div>
 
@@ -82,25 +100,31 @@
 
 </div>
 
-<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
-<!--<script>-->
-<!--    $(document).ready(function () {-->
-<!--        // 수량 증가 버튼 클릭 이벤트-->
-<!--        $(".increase-btn").click(function () {-->
-<!--            var $quantityInput = $(this).siblings(".quantity");-->
-<!--            var currentQuantity = parseInt($quantityInput.val());-->
-<!--            $quantityInput.val(currentQuantity + 1);-->
-<!--        });-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // 수량 증가 버튼 클릭 이벤트
+        $(".increase-btn").click(function () {
+            var $quantityInput = $(this).siblings(".quantity");
+            var currentQuantity = parseInt($quantityInput.val());
+            $quantityInput.val(currentQuantity + 1);
+        });
 
-<!--        // 수량 감소 버튼 클릭 이벤트-->
-<!--        $(".decrease-btn").click(function () {-->
-<!--            var $quantityInput = $(this).siblings(".quantity");-->
-<!--            var currentQuantity = parseInt($quantityInput.val());-->
-<!--            if (currentQuantity > 1) {-->
-<!--                $quantityInput.val(currentQuantity - 1);-->
-<!--            }-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
+        // 수량 감소 버튼 클릭 이벤트
+        $(".decrease-btn").click(function () {
+            var $quantityInput = $(this).siblings(".quantity");
+            var currentQuantity = parseInt($quantityInput.val());
+            if (currentQuantity > 1) {
+                $quantityInput.val(currentQuantity - 1);
+            }
+        });
+
+        // 재고 수량 계산하여 표시
+        // var productQty = parseInt("product.qty}}");
+        // var orderQty = parseInt($(".quantity").val());
+        // var remainingQty = productQty - orderQty;
+        // $(".remaining-qty").text("재고 수량: " + remainingQty);
+    });
+</script>
 
 {{> layout/footer}}
