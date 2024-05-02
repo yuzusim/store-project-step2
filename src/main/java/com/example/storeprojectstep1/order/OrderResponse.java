@@ -4,11 +4,14 @@ import com.example.storeprojectstep1.product.Product;
 import com.example.storeprojectstep1.product.ProductResponse;
 import com.example.storeprojectstep1.user.User;
 import com.example.storeprojectstep1.user.UserResponse;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 import javax.net.ssl.SSLSession;
 
 public class OrderResponse {
+
 
     //주문 폼
     //상세보기
@@ -104,7 +107,17 @@ public class OrderResponse {
             this.payment = order.getPayment();
             this.orderQty = order.getOrderQty();
             this.status = order.getStatus();
+            //buttonColor();
         }
+
+        //버튼 변경 클래스 용~
+//        public void buttonColor() {
+//            this.buttonColor = "btn btn-primary";
+//            if ("주문취소".equals(status)) {
+//                buttonColor = "btn btn-danger";
+//            }
+//
+//        }
     }
 
 }

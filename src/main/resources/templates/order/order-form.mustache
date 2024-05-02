@@ -16,7 +16,6 @@
                     <th>상품명</th>
                     <th>구매수량</th>
                     <th>상품가격</th>
-                    <th>상세보기</th>
                     <th>선택하기</th>
                 </tr>
                 {{#orderSaveList}}
@@ -50,12 +49,17 @@
                             {{price}}
                         </td>
                         <td>
-                            <!--선택하기 주문 삭제-->
+                            <!--주문하기 / 주문 삭제 체크박스-->
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" name=""
-                                       value="" style="width:20px !important;">
+                                <input class="form-check-input" type="checkbox" name="selectedOrder" value="{{id}}" style="width:20px !important;">
                             </label>
-<!--                            <a href="/order/id}}" class="btn btn-warning" style="width:100px">상세보기</a>-->
+                            <!--주문하기 / 주문 삭제 체크박스-->
+
+<!--                        <label class="form-check-label">-->
+<!--                                <input class="form-check-input" type="checkbox" name=""-->
+<!--                                       value="" style="width:20px !important;">-->
+<!--                            </label>-->
+
                         </td>
 
                     </tr>
@@ -86,11 +90,15 @@
             <!--주문, 상세하기 버튼-->
             <div class="">
                 <div class="mb-10">
+
+                    <button id="orderButton" class="btn btn-warning" style="width:300px" disabled>주문하기</button>
+
                     <a href="/order/list" class="btn btn-warning" style="width:300px">주문하기</a>
                 </div>
 
                 <div class="mb">
-                    <a href="/order/detail" class="btn btn-warning" style="width:300px">삭제하기</a>
+<!--                    <a href="/order/detail" class="btn btn-warning" style="width:300px">삭제하기</a>-->
+                    <button id="deleteButton" class="btn btn-warning" style="width:300px" disabled>주문 삭제</button>
                 </div>
             </div>
 
@@ -102,6 +110,23 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    $(document).ready(function () {
+        // 체크박스 클릭 이벤트
+        $('input[name="selectedOrder"]').click(function () {
+            // 체크박스의 체크 상태 확인
+            // if ($(this).is(':checked')) {
+                // 체크되었을 때 선택한 주문 삭제 및 주문 버튼 활성화
+                // $('#deleteButton').prop('disabled', false);
+                // $('#orderButton').prop('disabled', false);
+            } else {
+                // 체크가 해제되었을 때 버튼 비활성화
+                // $('#deleteButton').prop('disabled', true);
+                // $('#orderButton').prop('disabled', true);
+            }
+        });
+    });
+
+
     $(document).ready(function () {
         // 수량 증가 버튼 클릭 이벤트
         $(".increase-btn").click(function () {
