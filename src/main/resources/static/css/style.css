@@ -35,8 +35,23 @@ input {width: 100% !important; height: 38px;}
     padding-right:0 !important;
     padding-left:0 !important;
 }
-.cart-L{width:70%;}
-.cart-R{width:30%;}
+.cart-L, .order-L{width:70%;}
+.cart-R, .order-R{width:30%;}
+
+.order-W h2{
+    font-size: 20px;
+    font-weight: 500;
+    border-bottom: 1px solid #222;
+    padding: 20px;
+    text-align: start;
+}
+.user-info{padding: 50px 0}
+.user-info table{
+    font-size: 18px;
+    text-align: start;
+}
+.user-info table th, td{padding: 20px}
+
 /*#212529;*/
 
 .decrease-btn{
@@ -54,4 +69,15 @@ input {width: 100% !important; height: 38px;}
     border-bottom: 1px solid #ddd;
     border-left: none;
     border-right: none;
+}
+
+.order-R{
+    text-align: center;
+    flex:0 0 auto;
+    _padding: 0 !important;
+    width: 300px;
+    margin: 50px;
+    top: 120px;
+    position: sticky;
+    height: 100%;
 }

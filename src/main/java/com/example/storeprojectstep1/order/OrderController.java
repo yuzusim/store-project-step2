@@ -1,6 +1,5 @@
 package com.example.storeprojectstep1.order;
 
-import com.example.storeprojectstep1.product.ProductResponse;
 import com.example.storeprojectstep1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -57,6 +55,7 @@ public class OrderController {
 
 
 
+
     //구매하기
     @PostMapping("/order/{id}/add")
     public String save(@PathVariable Integer id, OrderRequest.SaveDTO reqDTO) {
@@ -64,8 +63,15 @@ public class OrderController {
         orderService.save(reqDTO, id, sessionUser);
 
         return "redirect:/order/"+id+"/order-form";
+//        return "cart/cart-form";
     }
 
+    @PostMapping("/order/order-save")
+    public String place(HttpServletRequest request){
+//        List<OrderResponse.ListDTO> orderList = orderService.findAll();
+//        request.setAttribute("orderList", orderList);
+        return "/order/order-save";
+    }
 
     //주문 폼
     @GetMapping("/order/{id}/order-form")
