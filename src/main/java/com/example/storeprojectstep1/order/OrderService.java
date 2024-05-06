@@ -18,7 +18,7 @@ public class OrderService {
     private final ProductRepository productRepo;
     private final EntityManager em;
 
-    //
+    //업데이트
 //    @Transactional
 //    public Order updateById(int id, OrderRequest.UpdateDTO reqDTO) {
 //        return orderRepo.updateById(id, reqDTO);
@@ -46,12 +46,12 @@ public class OrderService {
         return new OrderResponse.SaveDTO(order);
     }
 
-    public List<OrderResponse.ListDTO> findAllOrders() {
-        List<Order> orders = orderRepo.findAll();
-        return orders.stream()
-                .map(OrderResponse.ListDTO::new)
-                .collect(Collectors.toList());
-    }
+//    public List<OrderResponse.ListDTO> findAllOrders() {
+//        List<Order> orders = orderRepo.findAll();
+//        return orders.stream()
+//                .map(OrderResponse.ListDTO::new)
+//                .collect(Collectors.toList());
+//    }
 
 //    public OrderResponse.ListDTO findOrderByProductIdAndUserId(int productId, int userId, String status) {
 //        Order order = orderRepo.findByProductIdAndUserIdAndStatus(productId, userId, status);

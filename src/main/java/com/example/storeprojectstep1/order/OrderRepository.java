@@ -33,6 +33,7 @@ public class OrderRepository {
         return order;
     }
 
+    //상세보기
     //상품아이디랑 유저아이디 조회 (join fetch u.role -> 하등 필요 없는 거였음)
     public Order findByProductIdAndUserId(int productId, int userId) {
         Query query = em.createQuery("select o from Order o JOIN FETCH o.product p JOIN FETCH o.user u WHERE p.id =:product_id and u.id =:user_id");
@@ -49,22 +50,6 @@ public class OrderRepository {
         Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product ORDER BY o.id DESC", Order.class);
         return query.getResultList();
     }
-
-    //상태
-//    public Order findByProductIdAndUserIdAndStatus(int productId, int userId, String status) {
-//        Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.product p JOIN FETCH o.user u WHERE p.id = :product_id AND u.id = :user_id AND o.status = :status", Order.class);
-//        query.setParameter("product_id", productId);
-//        query.setParameter("user_id", userId);
-//        query.setParameter("status", status);
-//        return (Order) query.getSingleResult();
-//    }
-
-//    public List<Order> findByOrderAndUserId(int id, Integer orderId, String status) {
-//        Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user u JOIN FETCH o.product p where u.id = :id AND o.status = :status", Order.class);
-//        query.setParameter("id", id);
-//        query.setParameter("status", status);
-//        return query.getResultList();
-//    }
 
 
     //주문 폼
