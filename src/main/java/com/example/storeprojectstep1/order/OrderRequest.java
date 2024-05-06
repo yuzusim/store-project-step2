@@ -13,12 +13,6 @@ public class OrderRequest {
         private String payment;
     }
 
-
-    @Data
-    public static class StatusDTO{
-        private String status;
-    }
-
     @Data
     public static class UpdateDTO{
         // 주문수량

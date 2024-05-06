@@ -5,8 +5,6 @@
 
 <div class="container pt-5" style="text-align: center">
 
-    <!--    <form action="/order/add" method="post" enctype="multipart/form-data">-->
-
     <!--주문 테이블-->
     <div class="cart-w d-flex">
         <div class="cart-L">
@@ -29,42 +27,31 @@
                             </div>
                             {{name}}
                         </td>
-
                         <!--구매수량-->
                         <td>
                             {{orderQty}}
-                            <!-- 버튼으로 도 수량 올리고 싶을시
-                            <div class="quantity-controls d-flex"
-                                 style="width: 100px; text-align: center; margin:0 auto">
-                                <button type="button" class="decrease-btn" aria-label="수량내리기">-</button>
-                                <input type="text" class="quantity" name="orderQty" value=""
-                                       style="text-align: center;">
-                                <button type="button" class="increase-btn" aria-label="수량올리기">+</button>
-                            </div>
-                            <div class="" style="text-align: end">재고 수량: product.qty}} </div>
-                            -->
                         </td>
-                        <!---->
                         <td>
                             {{price}}
                         </td>
                         <td>
                             <!--주문하기 / 주문 삭제 체크박스-->
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" name="selectedOrder" value="{{id}}" style="width:20px !important;">
+
+                            <label class="form-check-label " style="margin: 0 auto">
+                                <input type="hidden" name="status" value="">
+                                <input class="form-check-input" type="checkbox" name="status"
+                                       value="" style="width:20px !important; margin: 0 auto">
                             </label>
-                            <!--주문하기 / 주문 삭제 체크박스-->
 
-<!--                        <label class="form-check-label">-->
-<!--                                <input class="form-check-input" type="checkbox" name=""-->
-<!--                                       value="" style="width:20px !important;">-->
-<!--                            </label>-->
-
+<!--                            <div class="new-create-button"> form-check-->
+<!--                                <form action="/order/list" method="get" >-->
+<!--                                    <input type="hidden" name="orderId" value="id}}">-->
+<!--                                    <button type="submit">status}}</button>-->
+<!--                                </form>-->
+<!--                            </div>-->
                         </td>
-
                     </tr>
                 {{/orderSaveList}}
-
             </table>
         </div>
         <!--주문 테이블-->
@@ -74,59 +61,22 @@
             <div>
                 <h3>[ 주문자 정보 ]</h3>
                 <p>{{user.username}}</p>
-                <h3>[ 배송지 ]</h3>
-                <p>{{user.address}}</p>
-                <div class="mb-10">
-                    <a href="/order/list" class="btn btn-warning" style="width:300px">배송지 변경</a>
-                </div>
             </div>
-
-            <!--            <form action="/order/add" method="post">-->
-            <!--                <button class="" type="submit" height="36" radius="3">-->
-            <!--                    <span class="">주문하기</span>-->
-            <!--                </button>-->
-            <!--            </form>-->
-
             <!--주문, 상세하기 버튼-->
             <div class="">
                 <div class="mb-10">
-
-                    <button id="orderButton" class="btn btn-warning" style="width:300px" disabled>주문하기</button>
-
                     <a href="/order/list" class="btn btn-warning" style="width:300px">주문하기</a>
                 </div>
-
                 <div class="mb">
-<!--                    <a href="/order/detail" class="btn btn-warning" style="width:300px">삭제하기</a>-->
                     <button id="deleteButton" class="btn btn-warning" style="width:300px" disabled>주문 삭제</button>
                 </div>
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-        // 체크박스 클릭 이벤트
-        $('input[name="selectedOrder"]').click(function () {
-            // 체크박스의 체크 상태 확인
-            // if ($(this).is(':checked')) {
-                // 체크되었을 때 선택한 주문 삭제 및 주문 버튼 활성화
-                // $('#deleteButton').prop('disabled', false);
-                // $('#orderButton').prop('disabled', false);
-            } else {
-                // 체크가 해제되었을 때 버튼 비활성화
-                // $('#deleteButton').prop('disabled', true);
-                // $('#orderButton').prop('disabled', true);
-            }
-        });
-    });
-
-
     $(document).ready(function () {
         // 수량 증가 버튼 클릭 이벤트
         $(".increase-btn").click(function () {
@@ -143,12 +93,6 @@
                 $quantityInput.val(currentQuantity - 1);
             }
         });
-
-        // 재고 수량 계산하여 표시
-        // var productQty = parseInt("product.qty}}");
-        // var orderQty = parseInt($(".quantity").val());
-        // var remainingQty = productQty - orderQty;
-        // $(".remaining-qty").text("재고 수량: " + remainingQty);
     });
 </script>
 

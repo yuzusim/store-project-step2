@@ -2,8 +2,6 @@ package com.example.storeprojectstep1.order;
 
 import com.example.storeprojectstep1.product.Product;
 import com.example.storeprojectstep1.product.ProductRepository;
-import com.example.storeprojectstep1.product.ProductRequest;
-import com.example.storeprojectstep1.product.ProductResponse;
 import com.example.storeprojectstep1.user.User;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -21,15 +19,15 @@ public class OrderService {
     private final EntityManager em;
 
     //
-    @Transactional
-    public Order updateById(int id, OrderRequest.UpdateDTO reqDTO) {
-        return orderRepo.updateById(id, reqDTO);
-    }
+//    @Transactional
+//    public Order updateById(int id, OrderRequest.UpdateDTO reqDTO) {
+//        return orderRepo.updateById(id, reqDTO);
+//    }
 
     //상세보기
     public OrderResponse.OrderDTO getOrderDetail(Integer userId, Integer productId) {
         //Product product = productRepo.findById(productId); //상품id조회
-        Order order = orderRepo.findByProductIdAndUserId(productId, userId); //해당 제품과 사용자에 해당하는 주문찾음
+        Order order = orderRepo.findByProductIdAndUserId(userId, productId); //해당 제품과 사용자에 해당하는 주문찾음
         return new OrderResponse.OrderDTO(order);
     }
 
@@ -48,6 +46,18 @@ public class OrderService {
         return new OrderResponse.SaveDTO(order);
     }
 
+    public List<OrderResponse.ListDTO> findAllOrders() {
+        List<Order> orders = orderRepo.findAll();
+        return orders.stream()
+                .map(OrderResponse.ListDTO::new)
+                .collect(Collectors.toList());
+    }
+
+//    public OrderResponse.ListDTO findOrderByProductIdAndUserId(int productId, int userId, String status) {
+//        Order order = orderRepo.findByProductIdAndUserIdAndStatus(productId, userId, status);
+//        return new OrderResponse.ListDTO(order);
+//    }
+
     //주문 폼 order-form
     public List<OrderResponse.OrderDTO> findByOrderAndUserId(int id) {
         List<Order> saveList = orderRepo.findByOrderAndUserId(id);
@@ -59,5 +69,6 @@ public class OrderService {
         List<Order> orderList = orderRepo.findAll();
         return orderList.stream().map(OrderResponse.ListDTO::new).toList();
     }
+
 
 }

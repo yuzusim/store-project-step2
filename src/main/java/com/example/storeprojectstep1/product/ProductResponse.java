@@ -3,6 +3,7 @@ package com.example.storeprojectstep1.product;
 import lombok.Data;
 
 public class ProductResponse {
+
     //상품 수정
     @Data
     public static class UpdateDTO {

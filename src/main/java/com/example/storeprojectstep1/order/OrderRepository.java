@@ -1,19 +1,12 @@
 package com.example.storeprojectstep1.order;
 
-import com.example.storeprojectstep1.errors.exception.Exception404;
-import com.example.storeprojectstep1.product.Product;
-import com.example.storeprojectstep1.user.User;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Repository
@@ -22,11 +15,11 @@ public class OrderRepository {
 
 
     //업데이트
-    public Order updateById(int id, OrderRequest.UpdateDTO reqDTO) {
-        Order order = findById(id);
-        order.setOrderQty(reqDTO.getOrderQty());
-        return order;
-    }
+//    public Order updateById(int id, OrderRequest.UpdateDTO reqDTO) {
+//        Order order = findById(id);
+//        order.setOrderQty(reqDTO.getOrderQty());
+//        return order;
+//    }
 
     //상세보기
     public Order findById(int id) {
@@ -45,6 +38,7 @@ public class OrderRepository {
         Query query = em.createQuery("select o from Order o JOIN FETCH o.product p JOIN FETCH o.user u WHERE p.id =:product_id and u.id =:user_id");
         query.setParameter("product_id", productId);
         query.setParameter("user_id", userId);
+        //query.setParameter("order_id", orderId);
 
         return (Order) query.getSingleResult();
     }
@@ -55,6 +49,22 @@ public class OrderRepository {
         Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product ORDER BY o.id DESC", Order.class);
         return query.getResultList();
     }
+
+    //상태
+//    public Order findByProductIdAndUserIdAndStatus(int productId, int userId, String status) {
+//        Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.product p JOIN FETCH o.user u WHERE p.id = :product_id AND u.id = :user_id AND o.status = :status", Order.class);
+//        query.setParameter("product_id", productId);
+//        query.setParameter("user_id", userId);
+//        query.setParameter("status", status);
+//        return (Order) query.getSingleResult();
+//    }
+
+//    public List<Order> findByOrderAndUserId(int id, Integer orderId, String status) {
+//        Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user u JOIN FETCH o.product p where u.id = :id AND o.status = :status", Order.class);
+//        query.setParameter("id", id);
+//        query.setParameter("status", status);
+//        return query.getResultList();
+//    }
 
 
     //주문 폼
@@ -71,6 +81,9 @@ public class OrderRepository {
 //        query.setParameter("userId", userId);
 //        return query.getResultList();
 //    }
+
+    // 1. 주문 폼 order-form 가지고 왔음
+    // 2. 체크박스 체크시 상태값 true로 바뀌면서 체크 한값만 리스트에 담기게 하기
 
 
 }
