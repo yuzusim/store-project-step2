@@ -1,6 +1,5 @@
 {{> layout/header}}
 <style>
-
 </style>
 
 <div class="container pt-5" style="text-align: center">
@@ -17,8 +16,8 @@
                         <th>상품가격</th>
                         <th>선택하기</th>
                     </tr>
-                    {{#orderSaveList}}
-                        <tr>
+                    {{#cartSaveList}}
+                        <tr class="cart-table my-cart-list" id="cart-{{id}}">
                             <td>{{id}}</td>
                             <td>
                                 <div style="width:150px; margin:0 auto;">
@@ -35,14 +34,19 @@
                                 {{price}}
                             </td>
                             <td>
+                                <div class="notVisible">{{id}}</div>
                                 <!--주문하기 / 주문 삭제 체크박스-->
-                                <input class="form-check-input product-checkbox" type="checkbox" name="selectedProducts"
-                                       value="{{id}}" style="width:20px !important; margin: 0 auto">
+                                <input class="form-check-input product-checkbox"
+                                       type="checkbox" name="itemCheck" id="itemCheck" class="item-check" checked="checked"
+                                       style="width:20px !important; margin: 0 auto">
+
+<!--                                <input class="form-check-input product-checkbox" type="checkbox" name="selectedProducts"-->
+<!--                                       value="id}}" style="width:20px !important; margin: 0 auto">-->
                             </td>
                         </tr>
-                    {{/orderSaveList}}
+                    {{/cartSaveList}}
                 </table>
-                <button type="button" class="btn btn-warning" style="width:300px" onclick="placeOrder()">주문하기</button>
+                <button type="button" class="btn btn-warning" id="purchaseButton" style="width:300px">주문하기</button>
             </form>
         </div>
         <!--주문 테이블-->
@@ -67,32 +71,78 @@
 </div>
 
 <script>
-    // 주문하기 버튼 클릭 시 실행되는 함수
-    function placeOrder() {
-        // 선택된 상품 ID를 저장할 배열
-        var selectedProductIds = [];
 
-        // 모든 체크박스를 가져와서 각각의 상태를 확인
-        var checkboxes = document.querySelectorAll('.product-checkbox');
-        checkboxes.forEach(function(checkbox) {
-            if (checkbox.checked) {
-                // 체크된 경우 상품 ID를 추출하여 배열에 추가
-                var productId = checkbox.value;
-                selectedProductIds.push(productId);
+    let cartList = [];
+
+    document.querySelector("#purchaseButton").addEventListener("click", function (e) {
+        e.preventDefault(); // 기본 폼 제출을 방지
+
+        let cart-table = document.querySelectorAll(".my-offer-list");
+
+        offerTable.forEach(value => {
+
+            let checkBox = value.querySelector("td > input");
+
+            if(checkBox.checked){
+                let info = value.querySelectorAll("td > div");
+                let cartId = info[0].innerHTML;
+                let buyQty = value.querySelector(".buyQty > input").value;
+                //console.log(cartId);
+                //console.log(buyQty);
+
+                let checkedCart = {
+                    cartId: cartId,
+                    buyQty: orderQty
+                };
+
+                cartList.push(checkedCart);
             }
         });
+        console.log(cartList);
 
-        // 선택된 상품 ID를 hidden 필드에 설정하여 폼에 추가
-        var hiddenField = document.createElement('input');
-        hiddenField.setAttribute('type', 'hidden');
-        hiddenField.setAttribute('name', 'selectedProductIds');
-        hiddenField.setAttribute('value', selectedProductIds.join(','));
-        document.getElementById('orderForm').appendChild(hiddenField);
+        $.ajax({
+            url: '/cart/update',
+            data: JSON.stringify(cartList),
+            contentType: 'application/json; charset=utf-8',
+            type: 'POST'
+        }).done((res)=>{
+            alert(`res : ${res}`);
+            location.href = "/order-save"
+        }).fail((res)=>{
 
-        // 주문 폼 제출
-        document.getElementById('orderForm').submit();
-    }
+        });
+    });
+
+    // 주문하기 버튼 클릭 시 실행되는 함수  onclick="placeOrder()"
+    // function placeOrder() {
+    //     // 선택된 상품 ID를 저장할 배열
+    //     var selectedProductIds = [];
+    //
+    //     // 모든 체크박스를 가져와서 각각의 상태를 확인
+    //     var checkboxes = document.querySelectorAll('.product-checkbox');
+    //     checkboxes.forEach(function(checkbox) {
+    //         if (checkbox.checked) {
+    //             // 체크된 경우 상품 ID를 추출하여 배열에 추가
+    //             var productId = checkbox.value;
+    //             selectedProductIds.push(productId);
+    //         }
+    //     });
+    //
+    //     // 선택된 상품 ID를 hidden 필드에 설정하여 폼에 추가
+    //     var hiddenField = document.createElement('input');
+    //     hiddenField.setAttribute('type', 'hidden');
+    //     hiddenField.setAttribute('name', 'selectedProductIds');
+    //     hiddenField.setAttribute('value', selectedProductIds.join(','));
+    //     document.getElementById('orderForm').appendChild(hiddenField);
+    //
+    //     // 주문 폼 제출
+    //     document.getElementById('orderForm').submit();
+    // }
 
 </script>
+
+<script src="/js/sum-calculate.js"></script>
+<script src="/js/list.js"></script>
+<script src="/js/check-all.js"></script>
 
 {{> layout/footer}}

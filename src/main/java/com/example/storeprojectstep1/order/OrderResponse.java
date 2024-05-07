@@ -12,19 +12,22 @@ import javax.net.ssl.SSLSession;
 
 public class OrderResponse {
 
-    @Data
-    public static class StatusDTO {
-        private Integer id;
-        private Boolean state;
+//    @Data
+//    public static class StatusDTO {
+//        private Integer id;
+//        private Boolean state;
+//
+//        public void setStatus(String status) {
+//            if ("주문완료".equals(status)) {
+//                this.state = true;
+//            } else if ("주문취소".equals(status)) {
+//                this.state = false;
+//            }
+//        }
+//    }
 
-        public void setStatus(String status) {
-            if ("주문완료".equals(status)) {
-                this.state = true;
-            } else if ("주문취소".equals(status)) {
-                this.state = false;
-            }
-        }
-    }
+
+
 
     //주문 폼
     //상세보기

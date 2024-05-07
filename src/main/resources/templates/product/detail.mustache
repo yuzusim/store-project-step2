@@ -5,7 +5,7 @@
 {{#sessionUser}}
     <!--개인 로그인시-->
     {{#isCheck}}
-        <form action="/order/{{product.id}}/add" method="post">
+        <form action="/cart/{{product.id}}/save" method="post">
             <div class="d-flex prodsav-W">
                 <input type="hidden" name="productId" value="{{product.id}}">
                 <!--상품이미지-->

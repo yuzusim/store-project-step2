@@ -56,22 +56,66 @@ public class OrderController {
 
 
 
-    //구매하기
-    @PostMapping("/order/{id}/add")
-    public String save(@PathVariable Integer id, OrderRequest.SaveDTO reqDTO) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        orderService.save(reqDTO, id, sessionUser);
-
-        return "redirect:/order/"+id+"/order-form";
-//        return "cart/cart-form";
-    }
-
-    @PostMapping("/order/order-save")
-    public String place(HttpServletRequest request){
+//    @PostMapping("/order/order-save")
+//    public String place(HttpServletRequest request){
 //        List<OrderResponse.ListDTO> orderList = orderService.findAll();
 //        request.setAttribute("orderList", orderList);
+//        return "/order/order-save";
+//    }
+
+    // 주문하려는 물품 확인 폼
+    @GetMapping("/order-save")
+    public String orderCheckForm(HttpServletRequest request) {
+
+        User sessionUser = (User) session.getAttribute("sessionUser");
+//        User user = orderService.유저조회(sessionUser.getId());
+
+
+//        if () {
+        //지금 화면에 뿌려질게 화면에 뿌려질 유저 정보와 장바구니에 담은 상품 정보를 받아와서 뿌려야함!!!@
+
+        // 사용자의 ID를 세션에서 가져와서 주문 목록 조회
+        List<OrderResponse.OrderDTO> orderSaveList =
+                orderService.findByOrderAndUserId(sessionUser.getId());
+        request.setAttribute("orderSaveList", orderSaveList);
+        session.setAttribute("user", sessionUser);
+
+//        List<OrderResponse.SaveFormDTO> cartList = orderService.내장바구니내역(sessionUser.getId());
+//            System.out.println("내장바구니 컨트롤러 확인용 : " + cartList);
+
+        //totalSum 계산용...
+//        Integer totalSum = cartList.stream().mapToInt(value -> value.getSum()).sum();
+
+        // 모델에(request) 담기 .... 한 번에 담고싶다  !!
+//        request.setAttribute("cartList", cartList);
+//        request.setAttribute("totalSum", totalSum);
+//        request.setAttribute("user", user);
+
+//        return "/order/order-save-form";
+
+//        } else {
+//            //디테일에서 구매하기 누르면 여기서 담겨야하지않을가
+//            OrderResponse.SaveFormDTO order = orderService.디테일주문폼(sessionUser.getId());
+//            System.out.println("주문폼 dto 값 확인 : " + order);
+//            request.setAttribute("order", order);
+//
+//            return "/order/order-save-form";
+//        }
+
+
+
         return "/order/order-save";
     }
+
+    //구매하기
+//    @PostMapping("/order/{id}/add")
+//    public String save(@PathVariable Integer id, OrderRequest.SaveDTO reqDTO) {
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+//        orderService.save(reqDTO, id, sessionUser);
+////
+////        return "redirect:/order/"+id+"/order-form";
+//        return "redirect:cart/cart-form";
+//    }
 
     //주문 폼
     @GetMapping("/order/{id}/order-form")

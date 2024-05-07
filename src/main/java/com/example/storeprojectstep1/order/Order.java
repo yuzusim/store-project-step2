@@ -1,5 +1,6 @@
 package com.example.storeprojectstep1.order;
 
+import com.example.storeprojectstep1.cart.Cart;
 import com.example.storeprojectstep1.product.Product;
 import com.example.storeprojectstep1.user.User;
 import jakarta.persistence.*;
@@ -42,9 +43,6 @@ public class Order {
     @Column
     private String status; //주문, 취소
 
-//    @Enumerated(EnumType.STRING) // Enum 값을 문자열로 저장
-//    @Column
-//    private OrderStatus status; // 주문 상태
 
     @CreationTimestamp
     private Timestamp createdAt;

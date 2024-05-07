@@ -81,3 +81,6 @@ input {width: 100% !important; height: 38px;}
     position: sticky;
     height: 100%;
 }
+.notVisible{
+    visibility: hidden;
+}

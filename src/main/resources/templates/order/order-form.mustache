@@ -68,30 +68,30 @@
 
 <script>
     // 주문하기 버튼 클릭 시 실행되는 함수
-    // function placeOrder() {
-    //     // 선택된 상품 ID를 저장할 배열
-    //     var selectedProductIds = [];
-    //
-    //     // 모든 체크박스를 가져와서 각각의 상태를 확인
-    //     var checkboxes = document.querySelectorAll('.product-checkbox');
-    //     checkboxes.forEach(function(checkbox) {
-    //         if (checkbox.checked) {
-    //             // 체크된 경우 상품 ID를 추출하여 배열에 추가
-    //             var productId = checkbox.value;
-    //             selectedProductIds.push(productId);
-    //         }
-    //     });
-    //
-    //     // 선택된 상품 ID를 hidden 필드에 설정하여 폼에 추가
-    //     var hiddenField = document.createElement('input');
-    //     hiddenField.setAttribute('type', 'hidden');
-    //     hiddenField.setAttribute('name', 'selectedProductIds');
-    //     hiddenField.setAttribute('value', selectedProductIds.join(','));
-    //     document.getElementById('orderForm').appendChild(hiddenField);
-    //
-    //     // 주문 폼 제출
-    //     document.getElementById('orderForm').submit();
-    // }
+    function placeOrder() {
+        // 선택된 상품 ID를 저장할 배열
+        var selectedProductIds = [];
+
+        // 모든 체크박스를 가져와서 각각의 상태를 확인
+        var checkboxes = document.querySelectorAll('.product-checkbox');
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                // 체크된 경우 상품 ID를 추출하여 배열에 추가
+                var productId = checkbox.value;
+                selectedProductIds.push(productId);
+            }
+        });
+
+        // 선택된 상품 ID를 hidden 필드에 설정하여 폼에 추가
+        var hiddenField = document.createElement('input');
+        hiddenField.setAttribute('type', 'hidden');
+        hiddenField.setAttribute('name', 'selectedProductIds');
+        hiddenField.setAttribute('value', selectedProductIds.join(','));
+        document.getElementById('orderForm').appendChild(hiddenField);
+
+        // 주문 폼 제출
+        document.getElementById('orderForm').submit();
+    }
 
 </script>
 
