@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @NoArgsConstructor
 @Data
@@ -52,10 +51,11 @@ public class Order {
     private Timestamp createdAt;
 
     @Builder
-    public Order(Integer id, User user, Product product, String payment, Integer orderQty, Integer totalQty, String status, Timestamp createdAt) {
+    public Order(Integer id, User user, Product product, Cart cart, String payment, Integer orderQty, Integer totalQty, String status, Timestamp createdAt) {
         this.id = id;
         this.user = user;
         this.product = product;
+        this.cart = cart;
         this.payment = payment;
         this.orderQty = orderQty;
         this.totalQty = totalQty;

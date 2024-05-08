@@ -1,8 +1,5 @@
 package com.example.storeprojectstep1.cart;
 
-import com.example.storeprojectstep1.order.OrderRequest;
-import com.example.storeprojectstep1.order.OrderResponse;
-import com.example.storeprojectstep1.order.OrderService;
 import com.example.storeprojectstep1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

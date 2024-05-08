@@ -1,5 +1,6 @@
 package com.example.storeprojectstep1.order;
 
+import com.example.storeprojectstep1.cart.Cart;
 import com.example.storeprojectstep1.product.Product;
 import com.example.storeprojectstep1.product.ProductRepository;
 import com.example.storeprojectstep1.user.User;
@@ -39,9 +40,9 @@ public class OrderService {
 
     //구매하기
     @Transactional
-    public OrderResponse.SaveDTO save(OrderRequest.SaveDTO reqDTO, int id, User user) {
+    public OrderResponse.SaveDTO save(OrderRequest.SaveDTO reqDTO, int id, User user, Cart cart) {
         Product product = productRepo.findById(id);
-        Order order = orderRepo.save(reqDTO.toEntity(product, user));
+        Order order = orderRepo.save(reqDTO.toEntity(product, user, cart));
         return new OrderResponse.SaveDTO(order);
     }
 
