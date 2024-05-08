@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Data
@@ -37,12 +38,12 @@ public class Cart {
     private Timestamp createdAt;
 
     @Builder
-    public Cart(Integer id, User user, Product product, Integer orderQty, Boolean status, Timestamp createdAt) {
+    public Cart(int id, User user, Product product, int orderQty, Boolean status, Timestamp createdAt) {
         this.id = id;
         this.user = user;
         this.product = product;
         this.orderQty = orderQty;
-        this.status = status;
+        this.status = status; // status 필드 초기화
         this.createdAt = createdAt;
     }
 }

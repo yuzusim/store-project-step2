@@ -1,9 +1,6 @@
-package com.example.storeprojectstep1.cart;
+ package com.example.storeprojectstep1.cart;
 
-import com.example.storeprojectstep1.order.Order;
 import com.example.storeprojectstep1.order.OrderRepository;
-import com.example.storeprojectstep1.order.OrderRequest;
-import com.example.storeprojectstep1.order.OrderResponse;
 import com.example.storeprojectstep1.product.Product;
 import com.example.storeprojectstep1.product.ProductRepository;
 import com.example.storeprojectstep1.user.User;
@@ -19,8 +16,6 @@ public class CartService {
     private final CartRepository cartRepo;
     private final OrderRepository orderRepo;
     private final ProductRepository productRepo;
-
-
 
     //장바구니 담기
     @Transactional

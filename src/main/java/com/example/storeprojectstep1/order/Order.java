@@ -32,6 +32,10 @@ public class Order {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
     @Column
     private String payment; //계좌이체
 

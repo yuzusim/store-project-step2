@@ -5,7 +5,6 @@ import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -47,28 +46,32 @@ public class OrderRepository {
 
     //주문 목록보기 order/list
     public List<Order> findAll() {
-        Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product ORDER BY o.id DESC", Order.class);
+        Query query = em.createQuery("SELECT o FROM Order o ORDER BY o.id DESC", Order.class);
         return query.getResultList();
     }
 
 
-    //주문 폼
-    public List<Order> findByOrderAndUserId(int id) {
-        Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user u JOIN FETCH o.product p where u.id =:id", Order.class);
-        query.setParameter("id", id);
-        return query.getResultList();
-    }
 
-
-//    public List<Order> findByOrderIdAndUserId(int orderId, int userId) {
-//        Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user u WHERE o.id = :orderId AND u.id = :userId", Order.class);
-//        query.setParameter("orderId", orderId);
-//        query.setParameter("userId", userId);
+//    public List<Order> findAll() {
+//        Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product ORDER BY o.id DESC", Order.class);
 //        return query.getResultList();
 //    }
 
-    // 1. 주문 폼 order-form 가지고 왔음
-    // 2. 체크박스 체크시 상태값 true로 바뀌면서 체크 한값만 리스트에 담기게 하기
 
+    //주문 폼
+//    public List<Order> findByOrderAndUserId(int id) { // JOIN FETCH o.cart c
+//        Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user u JOIN FETCH o.product p where u.id =:id", Order.class);
+//        query.setParameter("id", id);
+//        return query.getResultList();
+//    }
+
+//WHERE o.id =:order_id
+
+    //주문서
+    public List<Order> findByCartAndUserId() {
+        Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product ORDER BY o.id DESC", Order.class);
+//        query.setParameter("order_id", orderId);
+        return query.getResultList();
+    }
 
 }

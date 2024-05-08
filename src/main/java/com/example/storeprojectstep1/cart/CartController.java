@@ -37,16 +37,19 @@ public class CartController {
 //        return "redirect:/cart-list";
 //    }
 
+//    @PostMapping("/cart/update")
+//    public @ResponseBody String save(@RequestBody List<CartRequest.UpdateDTO> updateDtos) {
+//        System.out.println(updateDtos);
+//
+//        return "ok";
+//    }
+
+    //장바구니 췍
     @PostMapping("/cart/update")
-    public @ResponseBody String save(@RequestBody List<CartRequest.UpdateDTO> updateDtos) {
-        System.out.println(updateDtos);
+    public @ResponseBody String update(@RequestBody List<CartRequest.UpdateDTO> reqDTO) {
+        System.out.println("장바구니 값? : " + reqDTO);
 
-        // [CartRequest.UpdateDTO(cartId=13, buyQty=81), CartRequest.UpdateDTO(cartId=7, buyQty=20)]
-        // DB에서 내 장바구니 내역 조회 (4건)
-        // 13과 7이 아닌 애들은 삭제
-        // 13과 7은 업데이트
-
-        return "ok";
+        return "200";
     }
 
 

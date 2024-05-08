@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -46,29 +45,33 @@ public class OrderService {
         return new OrderResponse.SaveDTO(order);
     }
 
-//    public List<OrderResponse.ListDTO> findAllOrders() {
-//        List<Order> orders = orderRepo.findAll();
-//        return orders.stream()
-//                .map(OrderResponse.ListDTO::new)
-//                .collect(Collectors.toList());
+
+    //
+//    public List<OrderResponse.OrderSaveDTO> findByCartIdAndUserId(Integer cartId, Integer userId) {
+//        // 저장된 리스트를 사용자 ID와 카트 ID를 기준으로 조회
+//        List<Order> saveList = orderRepo.findByCartIdAndUserId(cartId, userId);
+//
+//        // 조회된 주문 리스트를 OrderSaveDTO로 변환
+//        return saveList.stream().map(OrderResponse.OrderSaveDTO::new).toList();
 //    }
 
-//    public OrderResponse.ListDTO findOrderByProductIdAndUserId(int productId, int userId, String status) {
-//        Order order = orderRepo.findByProductIdAndUserIdAndStatus(productId, userId, status);
-//        return new OrderResponse.ListDTO(order);
-//    }
 
     //주문 폼 order-form
-    public List<OrderResponse.OrderDTO> findByOrderAndUserId(int id) {
-        List<Order> saveList = orderRepo.findByOrderAndUserId(id);
+    public List<OrderResponse.OrderDTO> findByCartAndUserId() {
+        List<Order> saveList = orderRepo.findByCartAndUserId();
         return saveList.stream().map(OrderResponse.OrderDTO::new).toList();
     }
 
     //구매목록 메서드 order/list
-    public List<OrderResponse.ListDTO> findAll() {
-        List<Order> orderList = orderRepo.findAll();
-        return orderList.stream().map(OrderResponse.ListDTO::new).toList();
-    }
+//    public List<OrderResponse.ListDTO> findAll() {
+//        List<Order> orderList = orderRepo.findAll();
+//        return orderList.stream().map(OrderResponse.ListDTO::new).toList();
+//    }
 
+
+        public List<OrderResponse.OrderSaveDTO> findAll() {
+        List<Order> orderList = orderRepo.findAll();
+        return orderList.stream().map(OrderResponse.OrderSaveDTO::new).toList();
+    }
 
 }
