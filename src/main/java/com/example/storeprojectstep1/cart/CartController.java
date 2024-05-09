@@ -35,12 +35,6 @@ public class CartController {
 //        return "redirect:/cart-list";
 //    }
 
-//    @PostMapping("/cart/update")
-//    public @ResponseBody String save(@RequestBody List<CartRequest.UpdateDTO> updateDtos) {
-//        System.out.println(updateDtos);
-//
-//        return "ok";
-//    }
 
     //장바구니 췍
     @PostMapping("/cart/update")

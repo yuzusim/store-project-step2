@@ -32,25 +32,27 @@ public class CartRepository {
     }
 
 
-// 애
+    // 애
     public void updateStatusV2(CartRequest.UpdateDTO reqDTO) {
-//        for (CartRequest.UpdateDTO dto : reqDTOs) {
-            String jpql = """
-                      update Cart c set c.orderQty = :orderQty, c.status = :status where c.id = :id
-                    """;
-            Query query = em.createQuery(jpql);
-            query.setParameter("orderQty", 1000); // 새로운 수량 값 설정
-            query.setParameter("status", true); // 새로운 상태 값 설정
-            query.setParameter("id", reqDTO.getCartId());
-            query.executeUpdate();
-//        }
+//        for (CartRequest.UpdateDTO dto : reqDTOs) {}
+
+        String q = """
+                  update Cart c set c.orderQty = :orderQty, c.status = :status where c.id = :id
+                """;
+        Query query = em.createQuery(q);
+        //query.setParameter("orderQty", 1000); // 새로운 수량 값 설정
+        query.setParameter("orderQty", reqDTO.getOrderQty());
+        query.setParameter("status", true); // 새로운 상태 값 설정
+        query.setParameter("id", reqDTO.getCartId());
+        query.executeUpdate();
+
     }
 
 
     //롤백
     public void updateStatus() {
-        String jpql = "update Cart c set c.status = :newStatus where c.status = :oldStatus";
-        Query query = em.createQuery(jpql);
+        String q = "update Cart c set c.status = :newStatus where c.status = :oldStatus";
+        Query query = em.createQuery(q);
         query.setParameter("newStatus", false);
         query.setParameter("oldStatus", true);
         query.executeUpdate();
@@ -63,7 +65,6 @@ public class CartRepository {
 //        em.persist(cart);
 //        return cart;
 //    }
-
 
     public Cart save(Cart cart) {
         cart.setStatus(false); // status 설정

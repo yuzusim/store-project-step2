@@ -3,6 +3,7 @@ package com.example.storeprojectstep1.order;
 import com.example.storeprojectstep1.cart.Cart;
 import com.example.storeprojectstep1.cart.CartRepository;
 import com.example.storeprojectstep1.cart.CartResponse;
+import com.example.storeprojectstep1.orderItem.OrderItemRepository;
 import com.example.storeprojectstep1.product.Product;
 import com.example.storeprojectstep1.product.ProductRepository;
 import com.example.storeprojectstep1.user.User;
@@ -18,6 +19,7 @@ import java.util.List;
 @Service
 public class OrderService {
     private final OrderRepository orderRepo;
+    private final OrderItemRepository orderItemRepo;
     private final ProductRepository productRepo;
     private final CartRepository cartRepo;
     private final HttpSession session;
@@ -58,13 +60,31 @@ public class OrderService {
         return cartList;
     }
 
-    //구매하기
+
+    //구매하기(주문하기)
     @Transactional
-    public OrderResponse.SaveDTO save(OrderRequest.SaveDTO reqDTO, int id, User user, Cart cart) {
-        Product product = productRepo.findById(id);
-        Order order = orderRepo.save(reqDTO.toEntity(product, user, cart));
+    public OrderResponse.SaveDTO save(OrderRequest.SaveDTO reqDTO, Product product, Cart cart, User user) {
+        Order order = orderRepo.save(reqDTO.toEntity(product, cart, user));
+
+        ////order 저장
+        //Integer orderId = orderRepo.save(reqDTO);
+
+        //orderitem에 저장
+        //orderItemRepo.save(requestDTO, orderId);
+
+        //수량업데이트(구매한 것만)
+        //orderRepo.updateQty(requestDTO);
+
+        //체크한 장바구니는 딜리트 시킨다아!!!
+        //orderItemRepo.save(requestDTO, orderId);
+
         return new OrderResponse.SaveDTO(order);
+        //return null;
     }
+
+
+
+
 
 
     //주문 폼 order-form
@@ -74,10 +94,10 @@ public class OrderService {
 //    }
 
     //구매목록 메서드 order/list
-//    public List<OrderResponse.ListDTO> findAll() {
-//        List<Order> orderList = orderRepo.findAll();
-//        return orderList.stream().map(OrderResponse.ListDTO::new).toList();
-//    }
+    public List<OrderResponse.ListDTO> findAll() {
+        List<Order> orderList = orderRepo.findAll();
+        return orderList.stream().map(OrderResponse.ListDTO::new).toList();
+    }
 
 
     public List<OrderResponse.OrderSaveDTO> findAllOrder() {
@@ -86,6 +106,7 @@ public class OrderService {
         System.out.println("!!!!" + orderList);
         return orderList.stream().map(OrderResponse.OrderSaveDTO::new).toList();
     }
+
 
 
     //장바구니에 있는거 주문하는 폼

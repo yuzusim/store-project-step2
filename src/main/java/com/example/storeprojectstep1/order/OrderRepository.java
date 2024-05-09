@@ -51,12 +51,15 @@ public class OrderRepository {
 
 
     //주문완료 버튼을 누르면
-    //인서트, 오더, 오더아이템, 수량업데이트 구매한 것만, 체크한 장바구니는 딜리트 시킨다아!!!
+    //인서트, 오더(1), 오더아이템(n), 수량업데이트 구매한 것만, 체크한 장바구니는 딜리트 시킨다아!!!
     //죽음!!
     //오더리스트
-    public List<Order> findAllOrder() {
-        Query query =
-                em.createQuery("SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product JOIN FETCH o.cart ORDER BY o.id DESC", Order.class);
+    public List<OrderResponse.OrderSaveDTO> findAllOrder() {
+        String q = """
+                      SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product JOIN FETCH o.cart WHERE o.id =:order_id
+                    """;
+        Query query = em.createQuery(q);
+
         return query.getResultList();
     }
 

@@ -1,6 +1,7 @@
 {{> layout/header}}
 
 <div class="container pt-5" style="text-align: center">
+
     <div class="row">
         <!--주문 테이블-->
         <div>
@@ -16,20 +17,21 @@
                     <tr>
                     <tr>
                         <td>{{id}}</td>
-                        <td>{{product.name}}</td> <!-- 수정: productId로부터 상품명을 가져옴 -->
+                        <td>{{product.name}}</td>
                         <td>
                             <div style="width:150px; margin:0 auto;">
-                                <img src="/upload/{{product.img}}" alt="Product Image" style="max-width: 100%; max-height: 100%;">
+                                <img src="/upload/{{product.img}}" alt="Product Image"
+                                     style="max-width: 100%; max-height: 100%;">
                             </div>
                             {{product.price}}
-                        </td> <!-- 수정: productId로부터 상품가격을 가져옴 -->
+                        </td>
 
                         <td>
                             {{orderQty}}
                         </td>
                         <td>
-<!--                            <input type="hidden" name="orderId" value="id}}">-->
-<!--                            <input type="hidden" name="status" value="구매취소">-->
+                            <!--<input type="hidden" name="orderId" value="id}}">-->
+                            <!--<input type="hidden" name="status" value="구매취소">-->
 
                         </td>
                     </tr>

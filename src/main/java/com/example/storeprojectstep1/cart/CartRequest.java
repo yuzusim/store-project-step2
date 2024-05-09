@@ -12,6 +12,7 @@ public class CartRequest {
         private Integer cartId;
         private Integer orderQty;
         private Boolean status;
+
     }
 
     @Data

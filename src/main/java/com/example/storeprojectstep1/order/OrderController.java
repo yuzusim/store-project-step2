@@ -3,14 +3,13 @@ package com.example.storeprojectstep1.order;
 import com.example.storeprojectstep1.cart.Cart;
 import com.example.storeprojectstep1.cart.CartResponse;
 import com.example.storeprojectstep1.cart.CartService;
+import com.example.storeprojectstep1.product.Product;
 import com.example.storeprojectstep1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -83,7 +82,7 @@ public class OrderController {
 
 
 
-    //구매목록
+    //구매목록보기
     @GetMapping({"/order/list"})
     public String list(HttpServletRequest request) {
         //User sessionUser = (User) session.getAttribute("sessionUser");
@@ -95,15 +94,30 @@ public class OrderController {
 
 
 
-    //구매하기
+    //구매(주문하기)
+    @PostMapping("/order/save")
+    public String save(OrderRequest.SaveDTO reqDTO, Product product, Cart cart) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        System.out.println("!!!구매할꺼야???"+reqDTO);
+        orderService.save(reqDTO, product, cart, sessionUser);
+
+
+        session.setAttribute("user", sessionUser);
+
+        return "redirect:order/list";
+    }
+
+
 //    @PostMapping("/order/{id}/add")
-//    public String save(@PathVariable Integer id, OrderRequest.SaveDTO reqDTO) {
-//        User sessionUser = (User) session.getAttribute("sessionUser");
-//        orderService.save(reqDTO, id, sessionUser);
-////
-////        return "redirect:/order/"+id+"/order-form";
-//        return "redirect:cart/cart-form";
+//    public String save(OrderRequest.SaveDTO reqDTO, Product product, Cart cart, User sessionUser) {
+//        //User sessionUser = (User) session.getAttribute("sessionUser");
+//        System.out.println("!!!구매됐옹??" + reqDTO);
+//        // 예시: id를 어떤 식으로든 사용
+//        orderService.save(reqDTO, product, cart, sessionUser);
+//
+//        return "redirect:/order/list";
 //    }
+
 
     //주문 폼
 //    @GetMapping("/order/{id}/order-form")

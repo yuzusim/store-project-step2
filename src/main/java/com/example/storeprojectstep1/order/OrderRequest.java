@@ -27,7 +27,7 @@ public class OrderRequest {
         private Cart cart;
 
         // DTO에서 엔티티로 변환하는 메서드
-        public Order toEntity(Product product, User user, Cart cart) {
+        public Order toEntity(Product product, Cart cart, User user) {
             return Order.builder()
                     .orderQty(orderQty)
                     .product(product)
