@@ -67,11 +67,11 @@ public class OrderController {
         //User sessionUser = (User) session.getAttribute("sessionUser");
 
         // 사용자의 ID와 카트 ID를 세션에서 가져와서 주문 목록 조회
-        List<OrderResponse.OrderSaveDTO> orderSaveList =
+        List<OrderResponse.OrderSaveDTO> orderList =
                 orderService.findAll();
-        System.out.println("orderSaveList: " + orderSaveList);
+        System.out.println("orderSaveList: " + orderList);
 
-        request.setAttribute("orderSaveList", orderSaveList);
+        request.setAttribute("orderSaveList", orderList);
         //session.setAttribute("user", sessionUser);
 
         return "/order/order-save-form";

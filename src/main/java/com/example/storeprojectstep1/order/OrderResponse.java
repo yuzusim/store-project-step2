@@ -27,8 +27,10 @@ public class OrderResponse {
 //        }
 //    }
 
+
+    // 주문서 확인
     @Data
-    public static class OrderSaveDTO{
+    public static class OrderSaveDTO {
         private Integer id; //
         private Integer cartId;
         private User user; // 사용자 ID만 포함
@@ -38,7 +40,7 @@ public class OrderResponse {
         private Integer price; //상품가격
         private Integer orderQty; //구매수량
         private Integer totalQty; //총 결제 금액
-
+        private Boolean status;
 
         public OrderSaveDTO(Order order) {
             this.id = order.getId();
@@ -50,6 +52,7 @@ public class OrderResponse {
             this.price = order.getProduct().getPrice();
             this.orderQty = order.getOrderQty();
             this.totalQty = order.getTotalQty();
+            this.status = order.getStatus();
         }
     }
 
@@ -67,7 +70,7 @@ public class OrderResponse {
         private Integer qty;
         private String payment;
         private Integer orderQty;
-        private String status;
+        private Boolean status;
         private String address;
 
         public OrderDTO(Order order) {
@@ -87,7 +90,7 @@ public class OrderResponse {
 
     //상세보기
     @Data
-    public static class DetailDTO{
+    public static class DetailDTO {
         private Integer orderQty;
 
         public DetailDTO(Order Order) {
@@ -97,7 +100,7 @@ public class OrderResponse {
 
     //업데이트
     @Data
-    public static class UpdateDTO{
+    public static class UpdateDTO {
         private Integer orderQty;
 
         public UpdateDTO(Order Order) {
@@ -139,12 +142,12 @@ public class OrderResponse {
         private Product product; // 상품 ID만 포함
         private String payment;
         private Integer orderQty;
-        private String status;
+        private Boolean status;
 
         public ListDTO(Order order) {
             this.id = order.getId();
             this.user = order.getUser();
-            this.product =order.getProduct();
+            this.product = order.getProduct();
             this.payment = order.getPayment();
             this.orderQty = order.getOrderQty();
             this.status = order.getStatus();

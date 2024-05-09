@@ -44,14 +44,14 @@ public class Order {
     private Integer totalQty; //합계수량
 
     @Column
-    private String status; //주문, 취소
+    private Boolean status; //주문, 취소
 
 
     @CreationTimestamp
     private Timestamp createdAt;
 
     @Builder
-    public Order(Integer id, User user, Product product, Cart cart, String payment, Integer orderQty, Integer totalQty, String status, Timestamp createdAt) {
+    public Order(Integer id, User user, Product product, Cart cart, String payment, Integer orderQty, Integer totalQty, Boolean status, Timestamp createdAt) {
         this.id = id;
         this.user = user;
         this.product = product;

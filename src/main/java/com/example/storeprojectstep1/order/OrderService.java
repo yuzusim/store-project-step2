@@ -70,8 +70,9 @@ public class OrderService {
 //    }
 
 
-        public List<OrderResponse.OrderSaveDTO> findAll() {
+    public List<OrderResponse.OrderSaveDTO> findAll() {
         List<Order> orderList = orderRepo.findAll();
+        System.out.println("!!!!"+orderList);
         return orderList.stream().map(OrderResponse.OrderSaveDTO::new).toList();
     }
 

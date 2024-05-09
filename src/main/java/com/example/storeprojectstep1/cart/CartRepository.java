@@ -1,6 +1,8 @@
 package com.example.storeprojectstep1.cart;
 
 import com.example.storeprojectstep1.cart.Cart;
+import com.example.storeprojectstep1.order.Order;
+import com.example.storeprojectstep1.order.OrderRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,19 @@ import java.util.List;
 @Repository
 public class CartRepository {
     private final EntityManager em;
+
+    //업데이트
+    public Cart updateById(int id, CartRequest.UpdateDTO reqDTO) {
+        Cart cart = findById(id);
+        cart.setOrderQty(reqDTO.getOrderQty());
+        return cart;
+    }
+
+    //상세보기
+    public Cart findById(int id) {
+        Cart cart = em.find(Cart.class, id);
+        return cart;
+    }
 
     //장바구니 담기
     public Cart save(Cart cart) {

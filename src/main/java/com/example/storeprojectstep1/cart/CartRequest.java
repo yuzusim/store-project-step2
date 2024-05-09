@@ -11,7 +11,7 @@ public class CartRequest {
     public static class UpdateDTO{
         private Integer cartId;
         private Integer orderQty;
-//        private Boolean status;
+        private Boolean status;
     }
 
     @Data

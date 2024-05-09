@@ -51,7 +51,6 @@ public class OrderRepository {
     }
 
 
-
 //    public List<Order> findAll() {
 //        Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product ORDER BY o.id DESC", Order.class);
 //        return query.getResultList();

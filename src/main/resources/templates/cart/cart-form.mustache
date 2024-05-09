@@ -44,33 +44,33 @@
     document.querySelector("#purchaseButton").addEventListener("click", function (e) {
         e.preventDefault(); // 기본 폼 제출을 방지
 
-        let cartTable = document.querySelectorAll(".my-cart-list");
+        let checkedCarts = [];
 
-        cartTable.forEach(value => {
-            let checkBox = value.querySelector(".item-check");
+        // 선택된 상품을 확인하고 리스트에 추가
+        document.querySelectorAll(".item-check:checked").forEach(checkbox => {
+            let cartId = checkbox.id.split('-')[1];
+            let orderQty = document.querySelector(`#cart-${cartId} .cart-qty`).value;
 
-            if (checkBox.checked) {
-                let cartId = value.id.split('-')[1];
-                let orderQty = value.querySelector(".cart-qty").value;
+            let checkedCart = {
+                cartId: cartId,
+                orderQty: orderQty,
+                status: checkbox.checked ? true : false // 체크 여부에 따라 상태 설정
+            };
 
-                let checkedCart = {
-                    cartId: cartId,
-                    orderQty: orderQty,
-                };
-
-                cartSaveList.push(checkedCart);
-            }
+            checkedCarts.push(checkedCart);
         });
-        console.log(cartSaveList);
 
+        console.log(checkedCarts);
+
+        // AJAX 요청으로 선택된 상품을 서버로 전송
         $.ajax({
             url: '/cart/update',
-            data: JSON.stringify(cartSaveList),
+            data: JSON.stringify(checkedCarts),
             contentType: 'application/json; charset=utf-8',
             type: 'POST'
         }).done((res) => {
             alert(`결과: ${res}`);
-            location.href = "/order-save-form"
+            location.href = "/order-save-form";
         }).fail((res) => {
             // 오류 처리
         });

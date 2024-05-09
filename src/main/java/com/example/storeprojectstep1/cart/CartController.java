@@ -4,6 +4,7 @@ import com.example.storeprojectstep1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,12 +43,21 @@ public class CartController {
 //    }
 
     //장바구니 췍
-    @PostMapping("/cart/update")
-    public @ResponseBody String update(@RequestBody List<CartRequest.UpdateDTO> reqDTO) {
-        System.out.println("장바구니 값? : " + reqDTO);
+//    @PostMapping("/cart/update")
+//    public @ResponseBody String update(@RequestBody List<CartRequest.UpdateDTO> reqDTO) {
+//        System.out.println("장바구니 값? : " + reqDTO);
+//
+//        return "200";
+//    }
 
-        return "200";
+    @PostMapping("/cart/update")
+    public ResponseEntity<?> update(@RequestBody List<CartRequest.UpdateDTO> reqDTO) {
+        System.out.println("장바구니 값 받니? : " + reqDTO);
+        cartService.updateById(reqDTO);
+        //이거 return이... 뷰리졸브 x
+        return ResponseEntity.ok().body("성공");
     }
+
 
 
     //장바구니 폼

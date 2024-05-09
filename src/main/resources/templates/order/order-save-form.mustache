@@ -14,7 +14,10 @@
                         <td>구매수량</td>
                         <td>가격</td>
                     </tr>
-                    {{#orderSaveList}}
+                    {{#orderList}}
+                        <input type="hidden" name="userId" value="{{userId}}">
+                        <input type="hidden" name="productId" value="{{productId}}">
+                        <input type="hidden" name="cartId" value="{{cartId}}">
                         <tr>
                         <tr>
                             <td>{{id}}</td>
@@ -30,7 +33,7 @@
                                 {{orderQty}}
                             </td>
                         </tr>
-                    {{/orderSaveList}}
+                    {{/orderList}}
                 </table>
             </div>
             <!--주문 테이블-->
