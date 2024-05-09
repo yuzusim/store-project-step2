@@ -54,7 +54,7 @@ public class CartController {
     public ResponseEntity<?> update(@RequestBody List<CartRequest.UpdateDTO> reqDTO) {
         System.out.println("장바구니 값 받니? : " + reqDTO);
         cartService.updateById(reqDTO);
-        //이거 return이... 뷰리졸브 x
+
         return ResponseEntity.ok().body("성공");
     }
 

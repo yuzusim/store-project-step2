@@ -30,14 +30,22 @@ public class CartService {
     public List<Cart> updateById(List<CartRequest.UpdateDTO> reqDTOs) {
         List<Cart> updatedCarts = new ArrayList<>();
         for (CartRequest.UpdateDTO reqDTO : reqDTOs) {
+
+
             // 각 UpdateDTO를 사용하여 업데이트된 카트를 가져와서 리스트에 추가
             System.out.println("!!!"+reqDTOs);
-            Cart updatedCart = cartRepo.updateById(reqDTO.getCartId(), reqDTO);
+
+            cartRepo.updateStatusV2(reqDTO);
+
+//            Cart updatedCart = cartRepo.updateById(reqDTO.getCartId(), reqDTO);
+
             System.out.println("!!!"+reqDTOs);
-            updatedCarts.add(updatedCart);
+//            updatedCarts.add(updatedCart);
         }
         return updatedCarts;
     }
+
+
 
 
     //장바구니 담기

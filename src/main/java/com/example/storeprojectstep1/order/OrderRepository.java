@@ -1,10 +1,14 @@
 package com.example.storeprojectstep1.order;
 
+import com.example.storeprojectstep1.cart.Cart;
+import com.example.storeprojectstep1.cart.CartResponse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -44,27 +48,37 @@ public class OrderRepository {
     }
 
 
-    //주문 목록보기 order/list
-    public List<Order> findAll() {
-        Query query = em.createQuery("SELECT o FROM Order o ORDER BY o.id DESC", Order.class);
+    //서비스에서 상태 업데이트 트루로 하는 트랜잭션을 걸어주고 업데이트로
+
+
+    //주문서
+    public List<CartResponse.CartDTO> findByCartIdAndUserIdAndStatus(int userId) {
+        Query query = em.createQuery("select c from Cart c JOIN FETCH c.product p JOIN FETCH c.user u WHERE u.id =:user_id and c.status =:status");
+//        query.setParameter("cart_id", cartId);
+        query.setParameter("user_id", userId);
+        query.setParameter("status", true);
+
         return query.getResultList();
+
+        // 카트에 있는거 들고 와서 뿌림
+
     }
 
 
+
+    //주문 목록보기 order/list
 //    public List<Order> findAll() {
-//        Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product ORDER BY o.id DESC", Order.class);
+//        Query query =
+//                em.createQuery("SELECT o FROM Order o ORDER BY o.id DESC", Order.class);
 //        return query.getResultList();
 //    }
 
+        public List<Order> findAll() {
+        Query query =
+                em.createQuery("SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product JOIN FETCH o.cart ORDER BY o.id DESC", Order.class);
+        return query.getResultList();
+    }
 
-    //주문 폼
-//    public List<Order> findByOrderAndUserId(int id) { // JOIN FETCH o.cart c
-//        Query query = em.createQuery("SELECT o FROM Order o JOIN FETCH o.user u JOIN FETCH o.product p where u.id =:id", Order.class);
-//        query.setParameter("id", id);
-//        return query.getResultList();
-//    }
-
-//WHERE o.id =:order_id
 
     //주문서
     public List<Order> findByCartAndUserId() {
@@ -73,4 +87,10 @@ public class OrderRepository {
         return query.getResultList();
     }
 
+
+
 }
+
+//주문완료 버튼을 누르면
+//인서트, 오더, 오더아이템, 수량업데이트 구매한 것만, 체크한 장바구니는 딜리트 시킨다아!!!
+//죽음!!

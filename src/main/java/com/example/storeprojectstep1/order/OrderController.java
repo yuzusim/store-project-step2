@@ -1,5 +1,8 @@
 package com.example.storeprojectstep1.order;
 
+import com.example.storeprojectstep1.cart.Cart;
+import com.example.storeprojectstep1.cart.CartResponse;
+import com.example.storeprojectstep1.cart.CartService;
 import com.example.storeprojectstep1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -10,11 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
 public class OrderController {
 
+    private final CartService cartService;
     private final OrderService orderService;
     private final HttpSession session;
 
@@ -64,15 +69,16 @@ public class OrderController {
     // 주문서 확인
     @GetMapping("/order-save-form")
     public String orderSaveForm(HttpServletRequest request) {
-        //User sessionUser = (User) session.getAttribute("sessionUser");
+        User sessionUser = (User) session.getAttribute("sessionUser");
 
         // 사용자의 ID와 카트 ID를 세션에서 가져와서 주문 목록 조회
-        List<OrderResponse.OrderSaveDTO> orderList =
-                orderService.findAll();
-        System.out.println("orderSaveList: " + orderList);
+        List<CartResponse.CartDTO> orderList =
+                orderService.findByCartIdAndUserIdAndStatus(sessionUser.getId());
+        System.out.println("orderList: " + orderList);
 
-        request.setAttribute("orderSaveList", orderList);
-        //session.setAttribute("user", sessionUser);
+        request.setAttribute("orderList", orderList);
+
+        session.setAttribute("user", sessionUser);
 
         return "/order/order-save-form";
     }

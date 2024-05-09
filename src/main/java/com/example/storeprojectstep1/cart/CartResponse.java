@@ -6,6 +6,7 @@ import lombok.Data;
 
 public class CartResponse {
 
+    //장바구니리스트
     @Data
     public static class CartDTO {
         private Integer id;
@@ -16,7 +17,7 @@ public class CartResponse {
         private Integer price;
         private Integer qty;
         private Integer orderQty;
-        private String status;
+        private Boolean status;
         private String address;
 
 
@@ -29,7 +30,7 @@ public class CartResponse {
             this.price = cart.getProduct().getPrice();
             this.qty = cart.getOrderQty();
             this.orderQty = cart.getOrderQty();
-            this.status = String.valueOf(cart.getStatus());
+            this.status = cart.getStatus();
             this.address = cart.getUser().getAddress();
         }
     }

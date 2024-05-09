@@ -28,7 +28,7 @@ public class OrderResponse {
 //    }
 
 
-    // 주문서 확인
+    //주문서
     @Data
     public static class OrderSaveDTO {
         private Integer id; //
