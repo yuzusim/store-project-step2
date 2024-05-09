@@ -57,7 +57,7 @@ public class OrderResponse {
     }
 
 
-    //주문 폼
+
     //상세보기
     @Data
     public static class OrderDTO {

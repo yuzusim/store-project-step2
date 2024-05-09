@@ -77,9 +77,7 @@ public class OrderController {
         System.out.println("orderList: " + orderList);
 
         request.setAttribute("orderList", orderList);
-
         session.setAttribute("user", sessionUser);
-
         return "/order/order-save-form";
     }
 
@@ -90,8 +88,8 @@ public class OrderController {
     public String list(HttpServletRequest request) {
         //User sessionUser = (User) session.getAttribute("sessionUser");
 
-//        List<OrderResponse.ListDTO> orderList = orderService.findAll();
-//        request.setAttribute("orderList", orderList);
+        List<OrderResponse.OrderSaveDTO> orderList = orderService.findAllOrder();
+        request.setAttribute("orderList", orderList);
         return "/order/list";
     }
 

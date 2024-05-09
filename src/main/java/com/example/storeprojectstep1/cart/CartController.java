@@ -43,13 +43,6 @@ public class CartController {
 //    }
 
     //장바구니 췍
-//    @PostMapping("/cart/update")
-//    public @ResponseBody String update(@RequestBody List<CartRequest.UpdateDTO> reqDTO) {
-//        System.out.println("장바구니 값? : " + reqDTO);
-//
-//        return "200";
-//    }
-
     @PostMapping("/cart/update")
     public ResponseEntity<?> update(@RequestBody List<CartRequest.UpdateDTO> reqDTO) {
         System.out.println("장바구니 값 받니? : " + reqDTO);
@@ -57,7 +50,6 @@ public class CartController {
 
         return ResponseEntity.ok().body("성공");
     }
-
 
 
     //장바구니 폼
