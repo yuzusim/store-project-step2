@@ -7,6 +7,7 @@ import lombok.Data;
 
 public class CartRequest {
 
+    //장바구니 업데이트
     @Data
     public static class UpdateDTO{
         private Integer cartId;
@@ -15,6 +16,7 @@ public class CartRequest {
 
     }
 
+    //장바구니 담기
     @Data
     public static class SaveDTO {
         // 주문수량

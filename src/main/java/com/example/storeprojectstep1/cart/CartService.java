@@ -19,18 +19,12 @@ public class CartService {
     private final ProductRepository productRepo;
 
 
-
-//    //업데이트
-//    @Transactional
-//    public Cart updateById(List<CartRequest.UpdateDTO> reqDTO) {
-//        return cartRepo.updateById(id, (CartRequest.UpdateDTO) reqDTO);
-//    }
-
+    //장바구니리스트 체크박스 업데이트
+    //서비스에서 상태 업데이트 true 하는 트랜잭션을 걸어주고 업데이트로
     @Transactional
-    public List<Cart> updateById(List<CartRequest.UpdateDTO> reqDTOs) {
+    public List<Cart> updateByCarts(List<CartRequest.UpdateDTO> reqDTOs) {
         List<Cart> updatedCarts = new ArrayList<>();
         for (CartRequest.UpdateDTO reqDTO : reqDTOs) {
-
 
             // 각 UpdateDTO를 사용하여 업데이트된 카트를 가져와서 리스트에 추가
             System.out.println("!!!"+reqDTOs);
@@ -45,9 +39,6 @@ public class CartService {
         return updatedCarts;
     }
 
-
-
-
     //장바구니 담기
     @Transactional
     public CartResponse.CartDTO save(CartRequest.SaveDTO reqDTO, int id, User user) {
@@ -57,7 +48,7 @@ public class CartService {
         return new CartResponse.CartDTO(cart);
     }
 
-    //장바구니 담기
+    //장바구니 담기(리스트)
     public List<CartResponse.CartDTO> findByUserId(int id) {
         List<Cart> saveList = cartRepo.findByUserId(id);
         return saveList.stream().map(CartResponse.CartDTO::new).toList();

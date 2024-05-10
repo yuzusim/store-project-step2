@@ -57,7 +57,6 @@ public class OrderResponse {
     }
 
 
-
     //상세보기
     @Data
     public static class OrderDTO {
@@ -112,49 +111,81 @@ public class OrderResponse {
     //구매
     @Data
     public static class SaveDTO {
-        private Integer id;
+        private Integer id; //
+        private Integer cartId;
         private User user; // 사용자 ID만 포함
         private Product product; // 상품 ID만 포함
-        private String img;
-        private String name;
-        private Integer price;
-        private Integer orderQty;
-        private String address;
+        private String img; //상품이미지
+        private String name; //상품명
+        private Integer price; //상품가격
+        private Integer orderQty; //구매수량
+        private Integer totalQty; //총 결제 금액
+        private Boolean status;
 
         public SaveDTO(Order order) {
             this.id = order.getId();
+            this.cartId = order.getCart().getId();
             this.user = order.getUser();
             this.product = order.getProduct();
             this.img = order.getProduct().getImg();
             this.name = order.getProduct().getName();
             this.price = order.getProduct().getPrice();
             this.orderQty = order.getOrderQty();
-            this.address = order.getUser().getAddress();
-
+            this.totalQty = order.getTotalQty();
+            this.status = order.getStatus();
         }
     }
 
-    //주문 목록보기
+
+    //주문서
     @Data
     public static class ListDTO {
-        private Integer id;
+        private Integer id; //
+        private Integer cartId;
         private User user; // 사용자 ID만 포함
         private Product product; // 상품 ID만 포함
-        private String payment;
-        private Integer orderQty;
+        private String img; //상품이미지
+        private String name; //상품명
+        private Integer price; //상품가격
+        private Integer orderQty; //구매수량
+        private Integer totalQty; //총 결제 금액
         private Boolean status;
 
         public ListDTO(Order order) {
             this.id = order.getId();
+            this.cartId = order.getCart().getId();
             this.user = order.getUser();
             this.product = order.getProduct();
-            this.payment = order.getPayment();
+            this.img = order.getProduct().getImg();
+            this.name = order.getProduct().getName();
+            this.price = order.getProduct().getPrice();
             this.orderQty = order.getOrderQty();
+            this.totalQty = order.getTotalQty();
             this.status = order.getStatus();
-            //buttonColor();
         }
+    }
 
-        //버튼 변경 클래스 용~
+//    //주문 목록보기
+//    @Data
+//    public static class ListDTO {
+//        private Integer id;
+//        private User user; // 사용자 ID만 포함
+//        private Product product; // 상품 ID만 포함
+//        private String payment;
+//        private Integer orderQty;
+//        private Boolean status;
+//
+//        public ListDTO(Order order) {
+//            this.id = order.getId();
+//            this.user = order.getUser();
+//            this.product = order.getProduct();
+//            this.payment = order.getPayment();
+//            this.orderQty = order.getOrderQty();
+//            this.status = order.getStatus();
+//            //buttonColor();
+//        }
+
+    //버튼 변경 클래스 용~
 //        public void buttonColor() {
 //            this.buttonColor = "btn btn-primary";
 //            if ("주문취소".equals(status)) {
@@ -162,6 +193,8 @@ public class OrderResponse {
 //            }
 //
 //        }
-    }
+
 
 }
+
+

@@ -10,19 +10,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Repository
 public class OrderRepository {
     private final EntityManager em;
 
-
-    //업데이트
-//    public Order updateById(int id, OrderRequest.UpdateDTO reqDTO) {
-//        Order order = findById(id);
-//        order.setOrderQty(reqDTO.getOrderQty());
-//        return order;
-//    }
 
     //상세보기
     public Order findById(int id) {
@@ -36,32 +30,16 @@ public class OrderRepository {
         return order;
     }
 
-    //상세보기
-    //상품아이디랑 유저아이디 조회 (join fetch u.role -> 하등 필요 없는 거였음)
-//    public Order findByProductIdAndUserId(int productId, int userId) {
-//        Query query =
-//                em.createQuery("select o from Order o JOIN FETCH o.product p JOIN FETCH o.user u WHERE p.id =:product_id and u.id =:user_id");
-//        query.setParameter("product_id", productId);
-//        query.setParameter("user_id", userId);
-//        //query.setParameter("order_id", orderId);
-//
-//        return (Order) query.getSingleResult();
+
+//    public List<OrderResponse.OrderSaveDTO> findAllOrder() {
+//        String q = """
+//                SELECT o FROM Order o JOIN FETCH o.user u JOIN FETCH o.product p JOIN FETCH o.cart c ORDER BY o.id DESC";
+//                """;
+//        Query query = em.createQuery(q, Order.class);
+//        return query.getResultList();
 //    }
-//
 
 
-    //주문완료 버튼을 누르면
-    //인서트, 오더(1), 오더아이템(n), 수량업데이트 구매한 것만, 체크한 장바구니는 딜리트 시킨다아!!!
-    //죽음!!
-    //오더리스트
-    public List<OrderResponse.OrderSaveDTO> findAllOrder() {
-        String q = """
-                      SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product JOIN FETCH o.cart WHERE o.id =:order_id
-                    """;
-        Query query = em.createQuery(q);
-
-        return query.getResultList();
-    }
 
 
     //주문서 확인
@@ -78,28 +56,12 @@ public class OrderRepository {
 
     }
 
-
     //주문 목록보기 order/list
-//    public List<Order> findAll() {
-//        Query query =
-//                em.createQuery("SELECT o FROM Order o ORDER BY o.id DESC", Order.class);
-//        return query.getResultList();
-//    }
-
     public List<Order> findAll() {
         Query query =
-                em.createQuery("SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product JOIN FETCH o.cart ORDER BY o.id DESC", Order.class);
+                em.createQuery("SELECT o FROM Order o ORDER BY o.id DESC", Order.class);
         return query.getResultList();
     }
-
-
-//    //주문서
-//    public List<Order> findByCartAndUserId() {
-//        Query query =
-//                em.createQuery("SELECT o FROM Order o JOIN FETCH o.user JOIN FETCH o.product ORDER BY o.id DESC", Order.class);
-////        query.setParameter("order_id", orderId);
-//        return query.getResultList();
-//    }
 
 
 }

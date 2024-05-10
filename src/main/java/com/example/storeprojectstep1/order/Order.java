@@ -37,7 +37,7 @@ public class Order {
     @Column
     private String payment; //계좌이체
 
-    //@Column(nullable = false)
+    @Column(nullable = false)
     private Integer orderQty; //수량
 
     @Column

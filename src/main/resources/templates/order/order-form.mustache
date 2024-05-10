@@ -4,11 +4,10 @@
 </style>
 
 <div class="container pt-5" style="text-align: center">
-
     <!--주문 테이블-->
     <div class="cart-w d-flex">
         <div class="cart-L">
-            <form id="orderForm" action="/order/order-save" method="post"> <!-- 주문을 처리할 URL을 설정 -->
+            <form id="orderForm" action="/order/order-save" method="post">  주문을 처리할 URL을 설정 -->
                 <table class="table table-striped" style="vertical-align: middle">
                     <tr>
                         <th>번호</th>
@@ -42,7 +41,8 @@
                         </tr>
                     {{/orderList}}
                 </table>
-                <button type="button" class="btn btn-warning" style="width:300px" onclick="placeOrder()">주문하기</button>
+<!--            <a href="/order/list"></a>-->
+                <button type="button" class="btn btn-warning" style="width:300px" >주문하기</button>
             </form>
         </div>
         <!--주문 테이블-->

@@ -17,34 +17,14 @@ public class CartController {
     private final HttpSession session;
 
 
-//    // 장바구니 목록
-//    @GetMapping({"/cart-list"})
-//    public String list() {
-//        return "";
-//    }
-//
-//    // 상세보기
-//    @GetMapping("/cart/{id}")
-//    public String detail() {
-//        return "";
-//    }
-//
-//    // 장바구니 담기
-//    @PostMapping("/cart/{id}/save")
-//    public String saveCart() {
-//        return "redirect:/cart-list";
-//    }
-
-
     //장바구니 췍
     @PostMapping("/cart/update")
     public ResponseEntity<?> update(@RequestBody List<CartRequest.UpdateDTO> reqDTO) {
         System.out.println("장바구니 값 받니? : " + reqDTO);
-        cartService.updateById(reqDTO);
+        cartService.updateByCarts(reqDTO);
 
         return ResponseEntity.ok().body("성공");
     }
-
 
     //장바구니 폼
     @GetMapping("/cart/{id}/cart-form")

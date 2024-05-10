@@ -16,7 +16,7 @@ public class CartRepository {
     private final EntityManager em;
 
 
-    //서비스에서 상태 업데이트 트루로 하는 트랜잭션을 걸어주고 업데이트로
+
 
     //업데이트
 //    public Cart updateById(int id, CartRequest.UpdateDTO reqDTO) {
@@ -32,23 +32,22 @@ public class CartRepository {
     }
 
 
-    // 애
+    //장바구니 체크박스 업데이트
     public void updateStatusV2(CartRequest.UpdateDTO reqDTO) {
 //        for (CartRequest.UpdateDTO dto : reqDTOs) {}
 
         String q = """
-                  update Cart c set c.orderQty = :orderQty, c.status = :status where c.id = :id
+                  update Cart c set  c.status = :status where c.id = :id
                 """;
         Query query = em.createQuery(q);
         //query.setParameter("orderQty", 1000); // 새로운 수량 값 설정
-        query.setParameter("orderQty", reqDTO.getOrderQty());
+        //query.setParameter("orderQty", reqDTO.getOrderQty()); c.orderQty = :orderQty,
         query.setParameter("status", true); // 새로운 상태 값 설정
         query.setParameter("id", reqDTO.getCartId());
         query.executeUpdate();
 
     }
-
-
+    
     //롤백
     public void updateStatus() {
         String q = "update Cart c set c.status = :newStatus where c.status = :oldStatus";

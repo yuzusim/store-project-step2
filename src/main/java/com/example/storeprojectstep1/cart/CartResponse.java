@@ -20,7 +20,6 @@ public class CartResponse {
         private Boolean status;
         private String address;
 
-
         public CartDTO(Cart cart) {
             this.id = cart.getId();
             this.user = cart.getUser();
