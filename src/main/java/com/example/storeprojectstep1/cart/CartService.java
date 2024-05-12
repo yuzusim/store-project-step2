@@ -1,5 +1,6 @@
  package com.example.storeprojectstep1.cart;
 
+import com.example.storeprojectstep1.errors.exception.Exception404;
 import com.example.storeprojectstep1.order.OrderRepository;
 import com.example.storeprojectstep1.product.Product;
 import com.example.storeprojectstep1.product.ProductRepository;
@@ -26,10 +27,16 @@ public class CartService {
         List<Cart> updatedCarts = new ArrayList<>();
         for (CartRequest.UpdateDTO reqDTO : reqDTOs) {
 
+            Cart cart = cartRepo.findById(reqDTO.getCartId());
+            if(cart == null){
+                // cart 없다고 예외처리 해주기
+                throw new Exception404("존재하지 않는 카트입니다.");
+            }
+
             // 각 UpdateDTO를 사용하여 업데이트된 카트를 가져와서 리스트에 추가
             System.out.println("!!!"+reqDTOs);
 
-            cartRepo.updateStatusV2(reqDTO);
+            cartRepo.updateStatusChecke(reqDTO);
 
 //            Cart updatedCart = cartRepo.updateById(reqDTO.getCartId(), reqDTO);
 

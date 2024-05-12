@@ -1,8 +1,11 @@
 package com.example.storeprojectstep1.order;
 
+import com.example.storeprojectstep1.cart.Cart;
 import com.example.storeprojectstep1.cart.CartRepository;
 import com.example.storeprojectstep1.cart.CartResponse;
+import com.example.storeprojectstep1.orderItem.OrderItem;
 import com.example.storeprojectstep1.orderItem.OrderItemRepository;
+import com.example.storeprojectstep1.product.Product;
 import com.example.storeprojectstep1.product.ProductRepository;
 import com.example.storeprojectstep1.user.User;
 import jakarta.persistence.EntityManager;
@@ -11,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,6 +34,35 @@ public class OrderService {
         return new OrderResponse.DetailDTO(order);
     }
 
+    @Transactional
+    public List<OrderResponse.OrderSaveDTO> save(OrderRequest.SaveDTO reqDTO, Product product, Cart cart, User user) {
+        System.out.println("들어올꺼니?" + reqDTO);
+
+        // 입력된 객체들이 null인지 검사
+        if (product == null || cart == null || user == null) {
+            throw new IllegalArgumentException("Product, Cart, User 객체는 null일 수 없습니다.");
+        }
+
+        // Order 객체 저장
+        List<OrderResponse.OrderSaveDTO> orderList = (List<OrderResponse.OrderSaveDTO>) orderRepo.save(reqDTO.toEntity(product, cart, user));
+
+        // OrderItem 생성 및 저장
+        OrderItem orderItem = OrderItem.builder()
+                .product(product)
+                .orderQty(reqDTO.getOrderQty())
+                .build();
+        orderItemRepo.save(orderItem);
+
+        // 체크한 장바구니는 삭제시킨다.
+        if (reqDTO.getCart() != null && reqDTO.getCart().getId() != null) {
+            cartRepo.deleteBySelectId(Collections.singletonList(reqDTO.getCart().getId()));
+        } else {
+            System.out.println("삭제할 장바구니 항목이 없습니다.");
+        }
+
+        return orderList;
+    }
+
 
 
     //주문서 (카트에 있는거 들고 와서 뿌림 .. 카트를 DI)
@@ -43,37 +76,6 @@ public class OrderService {
     }
 
 
-    public void save(OrderRequest.SaveDTO reqDTO, User sessionUser) {
-        System.out.println();
-
-    }
-
-    //구매하기(주문하기)
-//    @Transactional
-//    public OrderResponse.SaveDTO save(OrderRequest.SaveDTO reqDTO, Product product, Cart cart, User user) {
-//        System.out.println("들어올꺼니?" + reqDTO);
-//        Order order = orderRepo.save(reqDTO.toEntity(product, cart, user));
-//
-//
-//        return new OrderResponse.SaveDTO(order);
-//    }
-
-
-////order 저장
-    //Integer orderId = orderRepo.save(reqDTO);
-
-    //orderitem에 저장
-    //orderItemRepo.save(reqDTO, orderId);
-
-
-
-    //수량업데이트(구매한 것만)
-    //orderRepo.updateQty(requestDTO);
-
-    //체크한 장바구니는 딜리트 시킨다아!!!
-    //orderItemRepo.save(requestDTO, orderId);
-
-
     //주문 폼 order-form
 //    public List<OrderResponse.OrderDTO> findByCartAndUserId() {
 //        List<Order> saveList = orderRepo.findByCartAndUserId();
@@ -81,12 +83,10 @@ public class OrderService {
 //    }
 
     //목록 메서드 order/list
-    public List<OrderResponse.ListDTO> findAll() {
+    public List<OrderResponse.OrderSaveDTO> findAll() {
         List<Order> orderList = orderRepo.findAll();
-        return orderList.stream().map(OrderResponse.ListDTO::new).toList();
+        return orderList.stream().map(OrderResponse.OrderSaveDTO::new).toList();
     }
-
-
 
 
 //    public List<OrderResponse.OrderSaveDTO> findAllOrder() {
@@ -96,9 +96,6 @@ public class OrderService {
 //        return orderList;
 //    }
 //
-
-
-
 
 
     // 저장된 리스트를 사용자 ID와 카트 ID를 기준으로 조회
@@ -115,5 +112,28 @@ public class OrderService {
 //        return new OrderResponse.OrderSaveDTO(order);
 //    }
 
+
+    //    //구매하기(주문하기)
+//    @Transactional
+//    public Order save(OrderRequest.SaveDTO reqDTO, Product product, Cart cart, User user) {
+//        System.out.println("들어올꺼니?" + reqDTO);
+//
+//        //order 저장
+//        Order order = orderRepo.save(reqDTO.toEntity(product, cart, user));
+//
+//        // OrderItem 생성 및 저장
+//        OrderItem orderItem = OrderItem.builder()
+//                .product(product)
+//                .orderQty(reqDTO.getOrderQty())
+//                .order(order)
+//                .build();
+//
+//        orderItemRepo.save(orderItem);
+//
+//        //체크한 장바구니는 삭제시킨다.
+//        cartRepo.deleteBySelectId(Collections.singletonList(reqDTO.getCart().getId()));
+//
+//        return order;
+//    }
 
 }

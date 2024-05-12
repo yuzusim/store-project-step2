@@ -24,23 +24,19 @@ public class OrderRepository {
         return order;
     }
 
-    //상품 구매하기
+    //주문하기
     public Order save(Order order) {
         em.persist(order);
         return order;
     }
 
 
-//    public List<OrderResponse.OrderSaveDTO> findAllOrder() {
-//        String q = """
-//                SELECT o FROM Order o JOIN FETCH o.user u JOIN FETCH o.product p JOIN FETCH o.cart c ORDER BY o.id DESC";
-//                """;
-//        Query query = em.createQuery(q, Order.class);
-//        return query.getResultList();
-//    }
-
-
-
+    //주문 목록보기 order/list
+    public List<Order> findAll() {
+        Query query =
+                em.createQuery("SELECT o FROM Order o ORDER BY o.id DESC", Order.class);
+        return query.getResultList();
+    }
 
     //주문서 확인
     public List<CartResponse.CartDTO> findByCartIdAndUserIdAndStatus(int userId) {
@@ -54,13 +50,6 @@ public class OrderRepository {
 
         // 카트에 있는거 들고 와서 뿌림
 
-    }
-
-    //주문 목록보기 order/list
-    public List<Order> findAll() {
-        Query query =
-                em.createQuery("SELECT o FROM Order o ORDER BY o.id DESC", Order.class);
-        return query.getResultList();
     }
 
 

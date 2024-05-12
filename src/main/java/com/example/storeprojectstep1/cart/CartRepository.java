@@ -31,9 +31,17 @@ public class CartRepository {
         return cart;
     }
 
+    //장바구니삭제
+    public void deleteBySelectId(List<Integer> cartId) {
+        String q= "DELETE FROM Cart c WHERE c.id IN :id";
+        Query query = em.createQuery(q);
+        query.setParameter("id", cartId);
+        query.executeUpdate();
+    }
+
 
     //장바구니 체크박스 업데이트
-    public void updateStatusV2(CartRequest.UpdateDTO reqDTO) {
+    public void updateStatusChecke(CartRequest.UpdateDTO reqDTO) {
 //        for (CartRequest.UpdateDTO dto : reqDTOs) {}
 
         String q = """

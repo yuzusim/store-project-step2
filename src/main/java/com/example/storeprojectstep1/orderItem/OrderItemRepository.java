@@ -1,21 +1,19 @@
 package com.example.storeprojectstep1.orderItem;
 
-import com.example.storeprojectstep1.cart.CartResponse;
-import com.example.storeprojectstep1.order.Order;
 import com.example.storeprojectstep1.order.OrderRequest;
-import com.example.storeprojectstep1.product.Product;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Repository
 public class OrderItemRepository {
     private final EntityManager em;
+
+    public OrderItem save(OrderItem orderItem) {
+        em.persist(orderItem);
+        return orderItem;
+    }
 
 
     //주문서 확인

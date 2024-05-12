@@ -4,6 +4,7 @@ import com.example.storeprojectstep1.cart.Cart;
 import com.example.storeprojectstep1.cart.CartResponse;
 import com.example.storeprojectstep1.cart.CartService;
 import com.example.storeprojectstep1.product.Product;
+import com.example.storeprojectstep1.product.ProductRepository;
 import com.example.storeprojectstep1.product.ProductService;
 import com.example.storeprojectstep1.user.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ public class OrderController {
 
     private final CartService cartService;
     private final ProductService productService;
+    private final ProductRepository productRepository;
     private final OrderService orderService;
     private final HttpSession session;
 
@@ -47,26 +49,23 @@ public class OrderController {
     //구매목록보기 -->
     @GetMapping({"/order/list"})
     public String list(HttpServletRequest request) {
-        //User sessionUser = (User) session.getAttribute("sessionUser");
+        User sessionUser = (User) session.getAttribute("sessionUser");
 
-//        List<OrderResponse.ListDTO> orderItemList = orderService.findAll();
-//        request.setAttribute("orderItemList", orderItemList);
-//        System.out.println("!!!"+orderItemList);
+        List<OrderResponse.OrderSaveDTO> orderItemList = orderService.findAll();
+        request.setAttribute("orderItemList", orderItemList);
+        System.out.println("!!!"+orderItemList);
+        session.setAttribute("user", sessionUser);
         return "/order/list";
     }
 
 
     //구매(주문) 하기
     @PostMapping("/order/order-save")
-    public String save(OrderRequest.SaveDTO reqDTO) {
+    public String save(OrderRequest.SaveDTO reqDTO, Product product, Cart cart) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        // ID를 사용하여 product, cart 객체를 데이터베이스에서 조회
-//        Product product = productService.findById(reqDTO.getProductId());
-//        Cart cart = cartService.findById(reqDTO.getCartId());
-
+        System.out.println("!!!들어왕???"+sessionUser);
+        orderService.save(reqDTO, product, cart, sessionUser);
         System.out.println("!!!들어왕???"+reqDTO);
-
-        orderService.save(reqDTO, sessionUser);
         return "redirect:order/list";
     }
 
@@ -81,7 +80,6 @@ public class OrderController {
         List<CartResponse.CartDTO> orderList =
                 orderService.findByCartIdAndUserIdAndStatus(sessionUser.getId());
         System.out.println("주문서확인: " + orderList);
-
         request.setAttribute("orderList", orderList);
         session.setAttribute("user", sessionUser);
         return "/order/order-save-form";

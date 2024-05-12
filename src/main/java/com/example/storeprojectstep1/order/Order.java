@@ -27,7 +27,7 @@ public class Order {
     private User user;
 
     // 여러번 상품을 주문할 수 있다.
-   @ManyToOne(fetch = FetchType.LAZY)
+   @ManyToOne(cascade = CascadeType.PERSIST) // 또는 CascadeType.ALL
    private Product product;
 
 
