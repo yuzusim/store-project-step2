@@ -45,11 +45,11 @@ public class CartRepository {
 //        for (CartRequest.UpdateDTO dto : reqDTOs) {}
 
         String q = """
-                  update Cart c set  c.status = :status where c.id = :id
+                  update Cart c set c.orderQty = :orderQty, c.status = :status where c.id = :id
                 """;
         Query query = em.createQuery(q);
         //query.setParameter("orderQty", 1000); // 새로운 수량 값 설정
-        //query.setParameter("orderQty", reqDTO.getOrderQty()); c.orderQty = :orderQty,
+        query.setParameter("orderQty", reqDTO.getOrderQty()); // c.orderQty = :orderQty,
         query.setParameter("status", true); // 새로운 상태 값 설정
         query.setParameter("id", reqDTO.getCartId());
         query.executeUpdate();

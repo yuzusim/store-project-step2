@@ -47,18 +47,18 @@ public class OrderService {
         List<OrderResponse.OrderSaveDTO> orderList = (List<OrderResponse.OrderSaveDTO>) orderRepo.save(reqDTO.toEntity(product, cart, user));
 
         // OrderItem 생성 및 저장
-        OrderItem orderItem = OrderItem.builder()
-                .product(product)
-                .orderQty(reqDTO.getOrderQty())
-                .build();
-        orderItemRepo.save(orderItem);
-
-        // 체크한 장바구니는 삭제시킨다.
-        if (reqDTO.getCart() != null && reqDTO.getCart().getId() != null) {
-            cartRepo.deleteBySelectId(Collections.singletonList(reqDTO.getCart().getId()));
-        } else {
-            System.out.println("삭제할 장바구니 항목이 없습니다.");
-        }
+//        OrderItem orderItem = OrderItem.builder()
+//                .product(product)
+//                .orderQty(reqDTO.getOrderQty())
+//                .build();
+//        orderItemRepo.save(orderItem);
+//
+//        // 체크한 장바구니는 삭제시킨다.
+//        if (reqDTO.getCart() != null && reqDTO.getCart().getId() != null) {
+//            cartRepo.deleteBySelectId(Collections.singletonList(reqDTO.getCart().getId()));
+//        } else {
+//            System.out.println("삭제할 장바구니 항목이 없습니다.");
+//        }
 
         return orderList;
     }

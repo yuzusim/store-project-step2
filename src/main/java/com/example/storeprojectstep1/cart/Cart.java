@@ -38,12 +38,15 @@ public class Cart {
     private Timestamp createdAt;
 
     @Builder
-    public Cart(int id, User user, Product product, int orderQty, Boolean status, Timestamp createdAt) {
+    public Cart(Integer id, User user, Product product, Integer orderQty, Integer sum, Boolean status, Timestamp createdAt) {
         this.id = id;
         this.user = user;
         this.product = product;
         this.orderQty = orderQty;
-        this.status = status; // status 필드 초기화
+//        this.sum = sum;
+        this.status = status;
         this.createdAt = createdAt;
     }
+
+
 }

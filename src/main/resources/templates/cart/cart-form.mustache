@@ -33,53 +33,86 @@
                     </tr>
                 {{/cartSaveList}}
             </table>
+
+        </div>
+        <div class="cart-R">
+            <div class="">
+                <h3>총 구매가격</h3>
+                <div id="totalPrice"></div>
+            </div>
             <button type="button" class="btn btn-warning" id="purchaseButton" style="width:300px">주문하기</button>
         </div>
     </div>
 </div>
 
 <script>
-    let cartSaveList = [];
+    document.addEventListener("DOMContentLoaded", function () {
+        // 총 구매 가격 계산 함수
+        function calculateTotalPrice() {
+            let totalPrice = 0;
+            document.querySelectorAll(".item-check:checked").forEach(checkbox => {
+                let cartId = checkbox.id.split('-')[1];
+                let orderQty = parseInt(document.querySelector(`#cart-${cartId} .cart-qty`).value);
+                let price = parseFloat(document.querySelector(`#cart-${cartId} td:nth-child(4)`).textContent);
+                totalPrice += price * orderQty;
+            });
+            // return totalPrice.toFixed(2); // 소수점 둘째 자리까지 표시
+            // 소수점 이하 값이 없는 경우에는 소수점을 제거하고 정수로 반환
+            return Math.round(totalPrice * 100) / 100;
+        }
 
-    document.querySelector("#purchaseButton").addEventListener("click", function (e) {
-        e.preventDefault(); // 기본 폼 제출을 방지
+        // 주문 버튼 클릭 이벤트 처리
+        document.querySelector("#purchaseButton").addEventListener("click", function (e) {
+            e.preventDefault(); // 기본 폼 제출을 방지
 
-        let checkedCarts = [];
+            let checkedCarts = [];
 
-        // 선택된 상품을 확인하고 리스트에 추가
-        document.querySelectorAll(".item-check:checked").forEach(checkbox => {
-            let cartId = checkbox.id.split('-')[1];
-            let orderQty = document.querySelector(`#cart-${cartId} .cart-qty`).value;
+            // 선택된 상품을 확인하고 리스트에 추가
+            document.querySelectorAll(".item-check:checked").forEach(checkbox => {
+                let cartId = checkbox.id.split('-')[1];
+                let orderQty = parseInt(document.querySelector(`#cart-${cartId} .cart-qty`).value);
 
-            let checkedCart = {
-                cartId: cartId,
-                orderQty: orderQty,
-                status: checkbox.checked ? true : false // 체크 여부에 따라 상태 설정
-            };
+                let checkedCart = {
+                    cartId: cartId,
+                    orderQty: orderQty,
+                    status: checkbox.checked ? true : false // 체크 여부에 따라 상태 설정
+                };
 
-            checkedCarts.push(checkedCart);
+                checkedCarts.push(checkedCart);
+            });
+
+            console.log(checkedCarts);
+
+            // AJAX 요청으로 선택된 상품을 서버로 전송
+            $.ajax({
+                url: '/cart/update',
+                data: JSON.stringify(checkedCarts),
+                contentType: 'application/json; charset=utf-8',
+                type: 'POST'
+            }).done((res) => {
+                alert(`주문이 완료되었습니다. 결과: ${res}`);
+                location.href = "/order-save-form";
+            }).fail((res) => {
+                alert(`주문 요청에 실패했습니다.`);
+            });
         });
 
-        console.log(checkedCarts);
+        // 총 구매 가격을 화면에 표시
+        function displayTotalPrice() {
+            let totalPrice = calculateTotalPrice();
+            document.querySelector("#totalPrice").textContent = totalPrice;
+        }
 
-        // AJAX 요청으로 선택된 상품을 서버로 전송
-        $.ajax({
-            url: '/cart/update',
-            data: JSON.stringify(checkedCarts),
-            contentType: 'application/json; charset=utf-8',
-            type: 'POST'
-        }).done((res) => {
-            alert(`결과: ${res}`);
-            location.href = "/order-save-form";
-        }).fail((res) => {
-            // 오류 처리
+        // 체크박스 클릭 시 총 구매 가격 업데이트
+        document.querySelectorAll(".item-check").forEach(checkbox => {
+            checkbox.addEventListener("change", function () {
+                displayTotalPrice();
+            });
         });
+
+        // 페이지 로드 시 총 구매 가격 표시
+        displayTotalPrice();
     });
 </script>
-
-
-<script src="/js/sum-calculate.js"></script>
-<script src="/js/list.js"></script>
-<script src="/js/check-all.js"></script>
 
 {{> layout/footer}}

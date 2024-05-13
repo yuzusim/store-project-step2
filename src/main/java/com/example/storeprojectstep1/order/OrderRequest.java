@@ -5,6 +5,8 @@ import com.example.storeprojectstep1.product.Product;
 import com.example.storeprojectstep1.user.User;
 import lombok.Data;
 
+import java.util.List;
+
 public class OrderRequest {
 
     @Data
@@ -22,11 +24,12 @@ public class OrderRequest {
     //구매하기(주문하기)
     @Data
     public static class SaveDTO {
-        private Integer order;
-        private Cart cart; // 카트 정보 추가
-        private User user;
-        private Product product;
-        private Integer orderQty;
+        private List<Integer> userId;
+        //product
+        private List<Integer> productId;
+        private List<String> name;
+        private List<Integer> orderQty;    //선택한 수량
+        private List<Integer> price;  //계산된 가격
 
         private Integer totalQty; // 주문 수량
         private Boolean status; // 주문 상태, Boolean 대신 열거형(enum) 사용을 고려해 볼 수 있음
@@ -40,7 +43,7 @@ public class OrderRequest {
                     .cart(cart) // 카트 정보 설정
                     .user(user)
                     .product(product)
-                    .orderQty(orderQty)
+//                    .orderQty(orderQty)
                     .status(status)
                     .build();
         }
