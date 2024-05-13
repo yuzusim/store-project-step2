@@ -32,6 +32,7 @@ public class CartService {
                 // cart 없다고 예외처리 해주기
                 throw new Exception404("존재하지 않는 카트입니다.");
             }
+            //(cart.getId() == null)
 
             // 각 UpdateDTO를 사용하여 업데이트된 카트를 가져와서 리스트에 추가
             System.out.println("!!!"+reqDTOs);

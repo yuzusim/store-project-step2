@@ -28,8 +28,8 @@ public class OrderRequest {
         //product
         private List<Integer> productId;
         private List<String> name;
-        private List<Integer> orderQty;    //선택한 수량
-        private List<Integer> price;  //계산된 가격
+        private List<Integer> orderQty;   //선택한 수량
+        private List<Integer> price;
 
         private Integer totalQty; // 주문 수량
         private Boolean status; // 주문 상태, Boolean 대신 열거형(enum) 사용을 고려해 볼 수 있음
