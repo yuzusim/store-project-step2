@@ -13,22 +13,22 @@
                         <td> NO.</td>
                         <td>상품명</td>
                         <td>가격</td>
-                        <td>구매수량</td> <!-- 구매수량과 가격의 순서가 바뀌었습니다 -->
+                        <td>구매수량</td>
                     </tr>
                     {{#orderList}}
 <!--                        <input type="hidden" name="userId" value="user.id}}">-->
 <!--                        <input type="hidden" name="productId" value="product.id}}">-->
-<!--                        <input type="hidden" name="cartId" value="cartId}}">-->
+<!--                        <input type="hidden" name="cartId" value="id}}">-->
                         <tr>
                             <td>{{id}}</td>
                             <td>
                                 <div style="width:150px; margin:0 auto;">
                                     <img src="/upload/{{product.img}}" alt="Product Image" style="max-width: 100%; max-height: 100%;">
                                 </div>
-<!--                                <input type="hidden" name="name" value="name">-->
+                                <input type="hidden" name="name" value="name">
                                 {{name}}
                             </td> <!-- 상품명은 product 객체의 name 속성입니다 -->
-                            <td>{{price}}</td> <!-- 상품 가격은 product 객체의 price 속성입니다 -->
+                            <td>{{product.price}}</td> <!-- 상품 가격은 product 객체의 price 속성입니다 -->
 
                             <td>
 <!--                                <input type="hidden" name="orderQty" value="orderQty}}">-->

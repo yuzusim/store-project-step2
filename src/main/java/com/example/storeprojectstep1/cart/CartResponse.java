@@ -29,7 +29,7 @@ public class CartResponse {
             this.price = cart.getProduct().getPrice();
             this.qty = cart.getOrderQty();
             this.orderQty = cart.getOrderQty();
-            this.status = cart.getStatus();
+            this.status = false;
             this.address = cart.getUser().getAddress();
         }
     }

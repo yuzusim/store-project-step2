@@ -42,9 +42,13 @@ public class OrderService {
         if (product == null || cart == null || user == null) {
             throw new IllegalArgumentException("Product, Cart, User 객체는 null일 수 없습니다.");
         }
+//        Order order = reqDTO.toEntity(product, cart, user);
+//        Order savedOrder = orderRepo.save(order);
+
 
         // Order 객체 저장
-        List<OrderResponse.OrderSaveDTO> orderList = (List<OrderResponse.OrderSaveDTO>) orderRepo.save(reqDTO.toEntity(product, cart, user));
+        List<OrderResponse.OrderSaveDTO> orderList =
+                (List<OrderResponse.OrderSaveDTO>) orderRepo.save(reqDTO.toEntity(product, cart, user));
 
         // OrderItem 생성 및 저장
 //        OrderItem orderItem = OrderItem.builder()
@@ -61,6 +65,7 @@ public class OrderService {
 //        }
 
         return orderList;
+
     }
 
 

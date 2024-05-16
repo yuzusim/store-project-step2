@@ -43,30 +43,50 @@
                     </tr>
                 {{/cartSaveList}}
             </table>
-
         </div>
+
+
+
+<!--        <div class="cart-R">-->
+<!--            <div class="">-->
+<!--                <h3>총 합계</h3>-->
+<!--                <span id="total">0</span>-->
+<!--            </div>-->
+
+<!--            <button type="button" class="btn btn-warning" id="purchaseButton"-->
+<!--                    style="width:300px; margin: 20px 0">주문하기-->
+<!--            </button>-->
+<!--        </div>-->
+
         <div class="cart-R">
             <div class="">
                 <h3>총 합계</h3>
                 <span id="total">0</span>
             </div>
-            {{#cartSaveList}}
-                <input type="hidden" name="cartId" value="{{id}}">
-                <input type="hidden" name="orderQty" value="{{orderQty}}">
-            {{/cartSaveList}}
+            <form action="/order/save-form" method="get">
+                <!--                #cartSaveList}}-->
+                <!--                    <input type="hidden" name="id" value="id}}">-->
+                <!--                    <input type="hidden" name="orderQty" value="orderQty}}">-->
+                <!--                    <input type="hidden" name="status" value="status}}">-->
+                <!--                /cartSaveList}}-->
 
-            <button type="button" class="btn btn-warning" id="purchaseButton"
-                    style="width:300px; margin: 20px 0">주문하기
-            </button>
+                <button type="button" class="btn btn-warning" id="purchaseButton"
+                        style="width:300px; margin: 20px 0">주문하기
+                </button>
+            </form>
         </div>
+
     </div>
 </div>
 
 <script>
     <!--total계산-->
     $(".item-check").change(function (e) {
+        //console.log(e)
+
         let total = 0;
         $(".item-check:checked").each(function () {
+            //console.log(this)
             total = total + $(this).data("price");
         });
 
