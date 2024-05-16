@@ -37,6 +37,9 @@ input {width: 100% !important; height: 38px;}
 }
 .cart-L, .order-L{width:70%;}
 .cart-R, .order-R{width:30%;}
+.cart-w input#checkAll, .cart-w input.item-check{
+   width:20px !important; margin: 0 auto
+}
 
 .order-W h2{
     font-size: 20px;
