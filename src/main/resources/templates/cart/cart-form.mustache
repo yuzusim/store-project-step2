@@ -19,18 +19,26 @@
                     <tr class="cart-table my-cart-list" id="cart-{{id}}">
                         <td>
                             <div class="notVisible">{{id}}</div>
-                            <input class="form-check-input product-checkbox item-check" type="checkbox" name="itemCheck" id="itemCheck-{{id}}">
+                            <input class="form-check-input item-check"
+                                   type="checkbox" name="itemCheck" id="itemCheck" data-price="{{price}}">
                         </td>
                         <td>
                             <div style="width:150px; margin:0 auto;">
-                                <img src="/upload/{{product.img}}" alt="Product Image" style="max-width: 100%; max-height: 100%;">
+                                <img src="/upload/{{product.img}}" alt="Product Image"
+                                     style="max-width: 100%; max-height: 100%;">
                             </div>
                         </td>
                         <td>{{name}}</td>
-                        <td>{{price}}</td>
-                        <td>
-                            <input type="hidden" class="" name="orderQty" value="{{orderQty}}">
-                            {{orderQty}}
+                        <td class="price">{{price}}</td>
+<!--                        <td>-->
+<!--                            <input type="hidden" class="" name="orderQty" value="orderQty}}">-->
+<!--                            orderQty}}-->
+<!--                        </td>-->
+
+                        <td class="orderQty">
+                            <input id="cart-qty-{{id}}" name="orderQty" type="number"
+                                   class="form-control custom-width orderQty-change"
+                                   value="{{orderQty}}" style="margin-bottom: 3%;">
                         </td>
                     </tr>
                 {{/cartSaveList}}
@@ -39,82 +47,114 @@
         </div>
         <div class="cart-R">
             <div class="">
-                <h3>총 구매가격</h3>
-                <div id="totalPrice"></div>
+                <h3>총 합계</h3>
+                <span id="total">0</span>
             </div>
-            <button type="button" class="btn btn-warning" id="purchaseButton" style="width:300px">주문하기</button>
+            {{#cartSaveList}}
+                <input type="hidden" name="cartId" value="{{id}}">
+                <input type="hidden" name="orderQty" value="{{orderQty}}">
+            {{/cartSaveList}}
+
+            <button type="button" class="btn btn-warning" id="purchaseButton"
+                    style="width:300px; margin: 20px 0">주문하기
+            </button>
         </div>
     </div>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // 총 구매 가격 계산 함수
-        // function calculateTotalPrice() {
-        //     let totalPrice = 0;
-        //     document.querySelectorAll(".item-check:checked").forEach(checkbox => {
-        //         let cartId = checkbox.id.split('-')[1];
-        //         let orderQty = parseInt(document.querySelector(`#cart-${cartId} .cart-qty`).value);
-        //         let price = parseFloat(document.querySelector(`#cart-${cartId} td:nth-child(4)`).textContent);
-        //         totalPrice += price * orderQty;
-        //     });
-        //     // return totalPrice.toFixed(2); // 소수점 둘째 자리까지 표시
-        //     // 소수점 이하 값이 없는 경우에는 소수점을 제거하고 정수로 반환
-        //     return Math.round(totalPrice * 100) / 100;
-        // }
+    <!--total계산-->
+    $(".item-check").change(function (e) {
+        let total = 0;
+        $(".item-check:checked").each(function () {
+            total = total + $(this).data("price");
+        });
 
-        // 주문 버튼 클릭 이벤트 처리
-        document.querySelector("#purchaseButton").addEventListener("click", function (e) {
-            e.preventDefault(); // 기본 폼 제출을 방지
+        //화면 표시
+        $("#total").text(total);
+    });
 
-            let checkedCarts = [];
+    <!-- AJAX-->
+    let cartSaveList = [];
 
-            // 선택된 상품을 확인하고 리스트에 추가
-            document.querySelectorAll(".item-check:checked").forEach(checkbox => {
-                let cartId = checkbox.id.split('-')[1];
-                let orderQty = parseInt(document.querySelector(`#cart-${cartId} .cart-qty`).value);
+    document.querySelector("#purchaseButton").addEventListener("click", function (e) {
+        e.preventDefault(); // 기본 폼 제출을 방지
+
+        let cartTable = document.querySelectorAll(".my-cart-list");
+
+        cartTable.forEach(value => {
+
+            let checkBox = value.querySelector("td > input");
+
+            if (checkBox.checked) {
+                let info = value.querySelectorAll("td > div");
+                let cartId = info[0].innerHTML;
+                let productId = info[0].innerHTML;
+                let orderQty = value.querySelector(".orderQty > input").value;
+                //console.log(cartId);
+                //console.log(orderQty);
 
                 let checkedCart = {
                     cartId: cartId,
+                    productId: productId,
                     orderQty: orderQty,
-                    status: checkbox.checked ? true : false // 체크 여부에 따라 상태 설정
+                    status: checkBox.checked ? true : false
                 };
 
-                checkedCarts.push(checkedCart);
-            });
-
-            console.log(checkedCarts);
-
-            // AJAX 요청으로 선택된 상품을 서버로 전송
-            $.ajax({
-                url: '/cart/update',
-                data: JSON.stringify(checkedCarts),
-                contentType: 'application/json; charset=utf-8',
-                type: 'POST'
-            }).done((res) => {
-                alert(`주문이 완료되었습니다. 결과: ${res}`);
-                location.href = "/order-save-form";
-            }).fail((res) => {
-                alert(`주문 요청에 실패했습니다.`);
-            });
+                cartSaveList.push(checkedCart);
+            }
         });
+        console.log(cartSaveList);
 
-        // 총 구매 가격을 화면에 표시
-        // function displayTotalPrice() {
-        //     let totalPrice = calculateTotalPrice();
-        //     document.querySelector("#totalPrice").textContent = totalPrice;
-        // }
+        // AJAX 요청으로 선택된 상품을 서버로 전송
+        $.ajax({
+            url: '/cart/update',
+            data: JSON.stringify(cartSaveList),
+            contentType: 'application/json; charset=utf-8',
+            type: 'POST'
+        }).done((res) => {
+            alert(`주문이 완료되었습니다. 결과: ${res}`);
+            location.href = "/order-save-form";
 
-        // // 체크박스 클릭 시 총 구매 가격 업데이트
-        // document.querySelectorAll(".item-check").forEach(checkbox => {
-        //     checkbox.addEventListener("change", function () {
-        //         displayTotalPrice();
-        //     });
-        // });
-        //
-        // // 페이지 로드 시 총 구매 가격 표시
-        // displayTotalPrice();
+        }).fail((res)=>{
+            console.log(res.message);
+            if(res.responseJSON.status === 400) {
+                alert(res.responseJSON.msg);
+                location.reload();      //자동 새로고침
+            } else {
+                location.href = "/order-save-form"
+            }
+            console.log(res);
+            // alert("주문 요청에 실패했습니다.");
+        });
     });
+
+
+    // document.addEventListener("DOMContentLoaded", function () {
+    //
+    //     // 주문 버튼 클릭 이벤트 처리
+    //     document.querySelector("#purchaseButton").addEventListener("click", function (e) {
+    //         e.preventDefault(); // 기본 폼 제출을 방지
+    //
+    //         let checkedCarts = [];
+    //
+    //         // 선택된 상품을 확인하고 리스트에 추가
+    //         document.querySelectorAll(".item-check:checked").forEach(checkbox => {
+    //             let cartId = checkbox.id.split('-')[1];
+    //             let orderQty = parseInt(document.querySelector(`#cart-${cartId} .cart-qty`).value);
+    //
+    //             let checkedCart = {
+    //                 cartId: cartId,
+    //                 orderQty: orderQty,
+    //                 status: checkbox.checked ? true : false // 체크 여부에 따라 상태 설정
+    //             };
+    //
+    //             checkedCarts.push(checkedCart);
+    //         });
+    //
+    //         console.log(checkedCarts);
+
+
 </script>
 
 {{> layout/footer}}
