@@ -32,13 +32,11 @@ public class OrderRequest {
         private List<Integer> price;
 
         private Integer totalQty; // 주문 수량
-        private Boolean status; // 주문 상태, Boolean 대신 열거형(enum) 사용을 고려해 볼 수 있음
+        private Boolean status; // 주문 상태
 
 
         // DTO에서 엔티티로 변환하는 메서드
         public Order toEntity(Product product, Cart cart, User user) {
-            //Integer orderQty = (totalQty != null) ? totalQty : 0;
-
             return Order.builder()
                     .cart(cart) // 카트 정보 설정
                     .user(user)

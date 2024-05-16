@@ -23,7 +23,7 @@
                             {{name}}
                         </td>
                         <td>
-                            <input type="hidden" class="cart-qty" name="orderQty" value="{{orderQty}}">
+                            <input type="hidden" class="orderQty" name="orderQty" value="{{orderQty}}">
                             {{orderQty}}
                         </td>
                         <td>{{price}}</td>
@@ -36,10 +36,10 @@
 
         </div>
         <div class="cart-R">
-            <div class="">
-                <h3>총 구매가격</h3>
-                <div id="totalPrice"></div>
-            </div>
+<!--            <div class="">-->
+<!--                <h3>총 구매가격</h3>-->
+<!--                <div id="totalPrice"></div>-->
+<!--            </div>-->
             <button type="button" class="btn btn-warning" id="purchaseButton" style="width:300px">주문하기</button>
         </div>
     </div>
@@ -47,18 +47,18 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // 총 구매 가격 계산 함수
+        // // 총 구매 가격 계산 함수
         // function calculateTotalPrice() {
-        //     let totalPrice = 0;
+        //     // let totalPrice = 0;
         //     document.querySelectorAll(".item-check:checked").forEach(checkbox => {
         //         let cartId = checkbox.id.split('-')[1];
-        //         let orderQty = parseInt(document.querySelector(`#cart-${cartId} .cart-qty`).value);
+        //         let orderQty = parseInt(document.querySelector(`#cart-${cartId} .orderQty`).value);
         //         let price = parseFloat(document.querySelector(`#cart-${cartId} td:nth-child(4)`).textContent);
         //         totalPrice += price * orderQty;
         //     });
         //     // return totalPrice.toFixed(2); // 소수점 둘째 자리까지 표시
         //     // 소수점 이하 값이 없는 경우에는 소수점을 제거하고 정수로 반환
-        //     return Math.round(totalPrice * 100) / 100;
+        //     // return Math.round(totalPrice * 100) / 100;
         // }
 
         // 주문 버튼 클릭 이벤트 처리
@@ -70,7 +70,7 @@
             // 선택된 상품을 확인하고 리스트에 추가
             document.querySelectorAll(".item-check:checked").forEach(checkbox => {
                 let cartId = checkbox.id.split('-')[1];
-                let orderQty = parseInt(document.querySelector(`#cart-${cartId} .cart-qty`).value);
+                let orderQty = parseInt(document.querySelector(`#cart-${cartId} .orderQty`).value);
 
                 let checkedCart = {
                     cartId: cartId,
@@ -103,14 +103,14 @@
         //     document.querySelector("#totalPrice").textContent = totalPrice;
         // }
 
-        // // 체크박스 클릭 시 총 구매 가격 업데이트
+        // 체크박스 클릭 시 총 구매 가격 업데이트
         // document.querySelectorAll(".item-check").forEach(checkbox => {
         //     checkbox.addEventListener("change", function () {
         //         displayTotalPrice();
         //     });
         // });
-        //
-        // // 페이지 로드 시 총 구매 가격 표시
+
+        // 페이지 로드 시 총 구매 가격 표시
         // displayTotalPrice();
     });
 </script>
